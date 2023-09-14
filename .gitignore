@@ -1,0 +1,19 @@
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+run
+
+#forge
+*.log
+.cache
+test
+generated [main]

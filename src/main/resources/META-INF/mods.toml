@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+license="LGPL V3"
+issueTrackerURL = "https://github.com/ITsMrToad/ToadLib-mod.git"
+[[mods]]
+modId="toadlib"
+version="1.0.1"
+displayName="ToadLib"
+logoFile="logo.png"
+authors="Mr.Toad"
+description='''
+Library for my mods. Contains utilities & abstractions.
+'''
+
+[[dependencies.toadlib]]
+modId="forge"
+mandatory=true
+versionRange="[45.1.0,)"
+ordering="NONE"
+side="BOTH"
