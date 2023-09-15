@@ -29,7 +29,6 @@ public class FenceGateOpenGoal extends FenceGateInteractGoal {
         this.setOpen(false);
     }
 
-
     @Override
     public void tick() {
         --this.forgetTime;
