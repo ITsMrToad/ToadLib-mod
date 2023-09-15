@@ -19,5 +19,4 @@ public enum EndWaterBehaviors implements IExtensibleEnum {
     public String getName(){
         return this.n;
     }
-
 }
