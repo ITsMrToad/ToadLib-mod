@@ -20,7 +20,4 @@ public class ToadlyBiomeTagProvider extends BiomeTagsProvider {
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         this.tag(ToadlyTags.ToadlyBiomeTags.IS_PLAINSLIKE).add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW);
     }
-
-
-
 }
