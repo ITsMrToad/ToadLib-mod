@@ -83,7 +83,6 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.19.4-45.1.0'
 }
 
-
 jar {
     manifest {
         attributes([
