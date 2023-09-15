@@ -70,6 +70,4 @@ public class GenerationWorker {
 
         return blockPos;
     }
-
-
 }
