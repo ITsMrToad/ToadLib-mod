@@ -19,6 +19,4 @@ public class ToadEntityUtils {
     public static void addParrotFood(Item... items) {
         Collections.addAll(Parrot.TAME_FOOD, items);
     }
-
-
 }
