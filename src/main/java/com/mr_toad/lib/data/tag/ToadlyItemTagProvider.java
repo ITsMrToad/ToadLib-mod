@@ -23,8 +23,4 @@ public class ToadlyItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.@NotNull Provider lookup) {
         this.tag(ToadlyTags.ToadlyItemTags.ORES).add(Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE, Items.COPPER_ORE, Items.DEEPSLATE_COPPER_ORE, Items.IRON_ORE, Items.DEEPSLATE_IRON_ORE, Items.GOLD_ORE, Items.DEEPSLATE_GOLD_ORE, Items.NETHER_GOLD_ORE, Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE, Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE, Items.EMERALD_ORE, Items.DEEPSLATE_EMERALD_ORE, Items.DIAMOND_ORE, Items.DEEPSLATE_DIAMOND_ORE, Items.ANCIENT_DEBRIS);
     }
-
-
-
-
 }
