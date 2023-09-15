@@ -37,7 +37,6 @@ public class ToadBlockUtils {
                 }
             }
         }
-
         return flag;
     }
 
