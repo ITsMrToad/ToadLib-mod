@@ -22,7 +22,6 @@ public class TemplateHelper {
 
         ResourceLocation emptyProcessor = new ResourceLocation("minecraft", "empty");
         Holder<StructureProcessorList> processorHolder = processorLists.getHolderOrThrow(ResourceKey.create(Registries.PROCESSOR_LIST, emptyProcessor));
-
         SinglePoolElement piece = SinglePoolElement.single(name, processorHolder).apply(StructureTemplatePool.Projection.RIGID);
 
         for (int i = 0; i < weight; i++) {
