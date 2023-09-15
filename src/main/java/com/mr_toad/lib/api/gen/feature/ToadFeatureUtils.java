@@ -60,5 +60,4 @@ public class ToadFeatureUtils {
     public static boolean mayBePlaceOn(LevelAccessor level, BlockPos pos, SaplingBlock sapling) {
         return level.getBlockState(pos).canSustainPlant(level, pos, Direction.UP, sapling);
     }
-
 }
