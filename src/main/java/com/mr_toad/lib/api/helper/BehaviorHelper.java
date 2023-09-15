@@ -38,7 +38,6 @@ public class BehaviorHelper {
             return false;
 
         }
-
     }
 
     public void throwHalfStack(Villager villager, Set<Item> items, LivingEntity entity) {
