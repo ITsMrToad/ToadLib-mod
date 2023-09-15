@@ -19,4 +19,5 @@ public class Add2ParrotTypes {
     public static ImmutableList<Add2ParrotTypesRecord> values() {
         return ImmutableList.copyOf(TypeSets.PARROT_TYPES);
     }
+
 }
