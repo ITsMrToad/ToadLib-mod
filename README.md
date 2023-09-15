@@ -1,3 +1,9 @@
+
+# ATTENTION, IMPLEMENTATION MY LIBRARY IS CURRENTLY IMPOSIBLE
+
+
+
+
 ## **📖 Quick Guide For Developers**
 
 if you want to add my mod for as a library, you should:
