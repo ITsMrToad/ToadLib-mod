@@ -39,8 +39,8 @@ public class BlockPropertyValues {
         return Block.Properties.of(Material.STONE, MaterialColor.STONE).sound(type).strength(s, s2);
     }
 
-    public static Block.Properties wood(float s, float s2) {
-        return Block.Properties.of(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).strength(s, s2);
+    public static Block.Properties wood(float s, float st2) {
+        return Block.Properties.of(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).strength(s, st2);
     }
 
     private static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
