@@ -79,6 +79,4 @@ public class ToadlyArmorMaterial implements ArmorMaterial {
     public float getKnockbackResistance() {
         return this.knockbackResistance;
     }
-
-
 }
