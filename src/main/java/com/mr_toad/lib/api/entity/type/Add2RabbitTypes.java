@@ -12,8 +12,6 @@ public class Add2RabbitTypes {
         return type;
     }
 
-
-
     public static synchronized Add2RabbitTypesRecord register(int id, ResourceLocation name) {
         return register(id, name, new ResourceLocation(name.getNamespace(), "textures/entity/rabbit/" + name.getPath() + ".png"));
     }
