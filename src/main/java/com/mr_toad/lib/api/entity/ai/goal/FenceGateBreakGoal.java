@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 public class FenceGateBreakGoal extends FenceGateInteractGoal {
 
     private final Predicate<Difficulty> validDifficulties;
+ 
     protected int breakTime;
     protected int lastBreakProgress = -1;
     protected int gateBreakTime = -1;
