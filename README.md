@@ -16,7 +16,7 @@ repositories {
 
 ```
 dependencies {
-    implementation fg.deobf("com.teamabnormals:blueprint:[version]")
+    implementation fg.deobf("com.mr_toad.lib:[version]")
 }
 ```
 Replace [version] with the desired version of ToadLib.
