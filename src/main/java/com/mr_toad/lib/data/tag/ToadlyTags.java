@@ -50,5 +50,4 @@ public class ToadlyTags {
             return ToadTagUtils.createEntityType(ToadLib.MODID, "ores");
         }
     }
-
 }
