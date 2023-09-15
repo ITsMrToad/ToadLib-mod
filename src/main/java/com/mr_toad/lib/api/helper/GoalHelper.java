@@ -33,5 +33,4 @@ public class GoalHelper {
     public static boolean isFenceGateOpen(BlockState state) {
         return state.getValue(FenceGateBlock.OPEN);
     }
-
 }
