@@ -20,6 +20,7 @@ public class WoodTypeInit {
         for (WoodType woodType : WOOD_TYPES.values()) WoodType.register(woodType);
     }
 
+    
     public static synchronized WoodType addWoodType(WoodType woodType) {
         WOOD_TYPES.put(woodType.name(), woodType);
         return woodType;
