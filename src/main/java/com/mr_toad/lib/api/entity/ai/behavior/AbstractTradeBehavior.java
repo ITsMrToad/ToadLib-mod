@@ -54,4 +54,5 @@ public abstract class AbstractTradeBehavior extends Behavior<Villager> {
 
     public abstract Set<Item> figureOutWhatIAmWillingToTrade(Villager villager, Villager villager02);
 
+    
 }
