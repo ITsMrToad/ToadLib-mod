@@ -59,5 +59,4 @@ public abstract class AbstractCapeableIllager extends AbstractIllager implements
     }
 
 
-
 }
