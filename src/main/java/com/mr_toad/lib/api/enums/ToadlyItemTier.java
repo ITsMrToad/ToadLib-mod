@@ -16,7 +16,6 @@ public class ToadlyItemTier implements Tier {
     private final float speed;
     private final float damage;
     private final int enchantmentValue;
-
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
     public ToadlyItemTier(int levelIn, int usesIn, float speedIn, float damageIn, int enchantmentValueIn, Supplier<Ingredient> repairIngredientIn) {
