@@ -43,6 +43,4 @@ public class ToadLib {
         generator.addProvider(includeServer, new ToadlyItemTagProvider(packOutput, lookupProvider, blockTagProvider.contentsGetter(), fileHelper));
         generator.addProvider(includeServer, new ToadlyBiomeTagProvider(packOutput, lookupProvider, fileHelper));
     }
-
-    
 }
