@@ -28,7 +28,6 @@ public class ToadlyDataProvider {
         public void chLogBlock(RotatedPillarBlock block, String name) {
             axisBlock(block, blockTexture(block), new ResourceLocation("block/" + name + "_log_top"));
         }
-
     }
 
     public abstract static class AbstractToadlyRecipeProvider  {
