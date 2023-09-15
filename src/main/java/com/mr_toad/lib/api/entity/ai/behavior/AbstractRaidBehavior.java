@@ -51,7 +51,6 @@ public abstract class AbstractRaidBehavior <T extends Mob> extends Behavior<T> {
     @Override
     public abstract void tick(ServerLevel serverLevel, T mob, long l0);
 
-
 }
 
 
