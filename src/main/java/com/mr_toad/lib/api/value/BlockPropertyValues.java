@@ -62,7 +62,6 @@ public class BlockPropertyValues {
     private static ToIntFunction<BlockState> litBlockEmission(int llvl) {
         return (state) -> state.getValue(BlockStateProperties.LIT) ? llvl : 0;
     }
-
 }
 
 
