@@ -109,6 +109,5 @@ public abstract class FenceGateInteractGoal extends Goal {
         if (f2 < 0.0F) {
             this.passed = true;
         }
-
     }
 }
