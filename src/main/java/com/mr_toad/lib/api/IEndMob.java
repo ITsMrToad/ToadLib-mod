@@ -41,5 +41,4 @@ public interface IEndMob<T extends LivingEntity> {
             entity.heal(1.0F);
         }
     }
-
 }
