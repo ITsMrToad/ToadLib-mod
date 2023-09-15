@@ -116,7 +116,7 @@ public abstract class AbstractJumpOnBehavior extends Behavior<Mob> {
     @Override
     protected abstract boolean checkExtraStartConditions(@NotNull ServerLevel s, Mob mob);
 
-    protected abstract boolean isTarget(ServerLevel serv, BlockPos blockPos);// return serv.getBlockState(blockPos).is(targetForJump);
+    protected abstract boolean isTarget(ServerLevel serv, BlockPos blockPos);
 
     public abstract MemoryModuleType<BlockPos> setMemory(MemoryModuleType<BlockPos> moduleType);
 
