@@ -19,4 +19,5 @@ public class ColorHandlers {
         colorHandlersEvent.register(color, blocks);
     }
 
+    
 }
