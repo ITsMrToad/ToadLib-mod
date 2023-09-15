@@ -20,4 +20,5 @@ public class Add2HorseTypes {
         return ImmutableList.copyOf(TypeSets.HORSE_TYPES);
     }
 
+    
 }
