@@ -33,7 +33,6 @@ public class TradesUtils {
         for (VillagerTrades.ItemListing trade : trades) event.getRareTrades().add(trade);
     }
 
-
     public static class NewTrade extends BasicItemListing {
 
         public NewTrade(ItemStack input, ItemStack input2, ItemStack output, int maxTrades, int xp, float priceMulti) {
