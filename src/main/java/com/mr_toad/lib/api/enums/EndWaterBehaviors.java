@@ -20,7 +20,4 @@ public enum EndWaterBehaviors implements IExtensibleEnum {
         return this.n;
     }
 
-
-
-
 }
