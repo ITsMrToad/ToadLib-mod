@@ -62,5 +62,4 @@ public class ItemPropertyValues {
     public static Item.Properties itemWDurabilityWRarity(int durability, Rarity rarity) {
         return itemWRarity(rarity).durability(durability);
     }
-
 }
