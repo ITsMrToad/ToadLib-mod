@@ -23,8 +23,8 @@ import net.minecraft.world.level.material.Fluid;
 
 public class ToadTagUtils {
 
-    public static TagKey<Biome> createBiome(String modid, String name) {
-        return TagKey.create(Registries.BIOME, new ResourceLocation(modid, name));
+    public static TagKey<Biome> createBiome(String modId, String name) {
+        return TagKey.create(Registries.BIOME, new ResourceLocation(modId, name));
     }
 
     public static TagKey<Fluid> createFluid(String modid, String name) {
