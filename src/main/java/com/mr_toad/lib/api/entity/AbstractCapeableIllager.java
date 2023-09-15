@@ -57,6 +57,4 @@ public abstract class AbstractCapeableIllager extends AbstractIllager implements
         this.capePosZ += d2 * 0.25D;
         this.capePosY += d1 * 0.25D;
     }
-
-
 }
