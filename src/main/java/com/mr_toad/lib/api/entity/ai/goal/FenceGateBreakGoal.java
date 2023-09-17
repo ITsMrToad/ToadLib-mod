@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 public class FenceGateBreakGoal extends FenceGateInteractGoal {
 
-    private final Predicate<Difficulty> validDifficulties;
+   rivate final Predicate<Difficulty> validDifficulties;
     protected int breakTime;
     protected int lastBreakProgress = -1;
     protected int gateBreakTime = -1;
@@ -32,10 +32,10 @@ public class FenceGateBreakGoal extends FenceGateInteractGoal {
     public boolean canUse() {
         if (!super.canUse()) {
             return false;
-        } else if (!ForgeHooks.canEntityDestroy(this.mob.level, this.gatePos, this.mob)) {
+        } else if (!ForgeHooks.canEntityDestroy(this.mob.level(), this.gatePos, this.mob)) {
             return false;
         } else {
-            return this.isValidDifficulty(this.mob.level.getDifficulty()) && !this.isOpen();
+            return this.isValidDifficulty(this.mob.level().getDifficulty()) && !this.isOpen();
         }
     }
 
@@ -47,20 +47,20 @@ public class FenceGateBreakGoal extends FenceGateInteractGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.breakTime <= this.getGateBreakTime() && !this.isOpen() && this.gatePos.closerToCenterThan(this.mob.position(), 2.0D) && this.isValidDifficulty(this.mob.level.getDifficulty());
+        return this.breakTime <= this.getGateBreakTime() && !this.isOpen() && this.gatePos.closerToCenterThan(this.mob.position(), 2.0D) && this.isValidDifficulty(this.mob.level().getDifficulty());
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.mob.level.destroyBlockProgress(this.mob.getId(), this.gatePos, -1);
+        this.mob.level().destroyBlockProgress(this.mob.getId(), this.gatePos, -1);
     }
 
     @Override
     public void tick() {
         super.tick();
         if (this.mob.getRandom().nextInt(20) == 0) {
-            this.mob.level.levelEvent(1019, this.gatePos, 0);
+            this.mob.level().levelEvent(1019, this.gatePos, 0);
             if (!this.mob.swinging) {
                 this.mob.swing(this.mob.getUsedItemHand());
             }
@@ -69,14 +69,14 @@ public class FenceGateBreakGoal extends FenceGateInteractGoal {
         ++this.breakTime;
         int i = (int)((float)this.breakTime / (float)this.getGateBreakTime() * 10.0F);
         if (i != this.lastBreakProgress) {
-            this.mob.level.destroyBlockProgress(this.mob.getId(), this.gatePos, i);
+            this.mob.level().destroyBlockProgress(this.mob.getId(), this.gatePos, i);
             this.lastBreakProgress = i;
         }
 
-        if (this.breakTime == this.getGateBreakTime() && this.isValidDifficulty(this.mob.level.getDifficulty())) {
-            this.mob.level.removeBlock(this.gatePos, false);
-            this.mob.level.levelEvent(1021, this.gatePos, 0);
-            this.mob.level.levelEvent(2001, this.gatePos, Block.getId(this.mob.level.getBlockState(this.gatePos)));
+        if (this.breakTime == this.getGateBreakTime() && this.isValidDifficulty(this.mob.level().getDifficulty())) {
+            this.mob.level().removeBlock(this.gatePos, false);
+            this.mob.level().levelEvent(1021, this.gatePos, 0);
+            this.mob.level().levelEvent(2001, this.gatePos, Block.getId(this.mob.level().getBlockState(this.gatePos)));
         }
 
     }
