@@ -1,6 +1,17 @@
+package com.mr_toad.lib.api;
+
+import com.mr_toad.lib.api.enums.EndWaterBehaviors;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
+
+
+public interface IPlayer<T extends Player> {
+
    EndWaterBehaviors getBehavior();
 
-    default boolean getEndWaterBehaviors(T entity, DamageSource endWaterSource) {
+   default boolean getEndWaterBehaviors(T entity, DamageSource endWaterSource) {
         switch (getBehavior()) {
             case HURT -> waterHurt(entity, endWaterSource);
             case REGEN -> waterHeal(entity);
@@ -22,3 +33,4 @@
             entity.heal(1.0F);
         }
     }
+}
