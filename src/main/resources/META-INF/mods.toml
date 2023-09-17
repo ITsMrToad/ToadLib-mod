@@ -1,20 +1,24 @@
 modLoader="javafml"
-loaderVersion="[43,)"
-license="LGPL V3"
-issueTrackerURL = "https://github.com/ITsMrToad/ToadLib-mod.git"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
 [[mods]]
 modId="toadlib"
-version="1.0.1"
-displayName="ToadLib"
-logoFile="logo.png"
-authors="Mr.Toad"
-description='''
-Library for my mods. Contains utilities & abstractions.
-'''
+version="${mod_version}"
+displayName="${mod_name}"
+authors="${mod_authors}"
+description='''Library for my mods. Contains utilities & abstractions.'''
 
 [[dependencies.toadlib]]
 modId="forge"
 mandatory=true
-versionRange="[45.1.0,)"
+versionRange="${forge_version_range}"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.toadlib]]
+modId="minecraft"
+mandatory=true
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
+
