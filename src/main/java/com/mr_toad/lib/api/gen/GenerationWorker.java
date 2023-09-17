@@ -19,13 +19,13 @@ import java.util.function.Predicate;
 
 public class GenerationWorker {
 
-    private static int waterTemperature;
+     private static int waterTemperature;
 
     private static final Set<ResourceKey<Biome>> CUSTOM_END_MUSIC_BIOMES = new HashSet<>();
     private static final Set<ResourceKey<Biome>> CUSTOM_NETHER_MUSIC_BIOMES = new HashSet<>();
 
     public Holder<Biome> getNoiseBiome(int x, int y, int z, Climate.Sampler sampler, BiomeSource original) {
-        return original.getNoiseBiome(x, y, z, sampler);
+        return original.getNoiseBiome(x, y, z, sampler); //get a Noise
     }
 
     public static Predicate<BlockState> isFluid(int minLevel, TagKey<Fluid> allowedFluids) {
@@ -54,21 +54,6 @@ public class GenerationWorker {
 
     public static int setVarietyWaterTemperature(int temperature) {
         return waterTemperature = temperature;
-    }
-
-    public static BlockPos getClosestPositionToPos(List<BlockPos> positions, BlockPos pos) {
-        double distance = -1.0D;
-        BlockPos blockPos = null;
-
-        for (BlockPos listOfPositions : positions) {
-            double newDistance = Vec3.atLowerCornerOf(pos).distanceToSqr(Vec3.atLowerCornerOf((listOfPositions)));
-            if (distance == -1.0D || newDistance < distance) {
-                distance = newDistance;
-                blockPos = listOfPositions;
-            }
-        }
-
-        return blockPos;
     }
 
 
