@@ -15,32 +15,32 @@ import java.util.function.ToIntFunction;
 
 public class BlockPropertyValues {
 
-    public static Block.Properties plant() {
-        return Block.Properties.of(Material.PLANT, MaterialColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(Block.OffsetType.XZ);
+     public static Block.Properties plant() {
+        return Block.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(Block.OffsetType.XZ);
     }
 
     public static Block.Properties sapling() {
-        return Block.Properties.of(Material.PLANT, MaterialColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS);
+        return Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS);
     }
 
     public static Block.Properties ladder() {
-        return Block.Properties.of(Material.DECORATION, MaterialColor.WOOD).strength(0.4F).sound(SoundType.LADDER).noOcclusion();
+        return Block.Properties.of().mapColor(MapColor.WOOD).strength(0.4F).sound(SoundType.LADDER).noOcclusion();
     }
 
     public static Block.Properties pot() {
-        return Block.Properties.of(Material.DECORATION).instabreak().noOcclusion();
+        return Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instabreak().noOcclusion();
     }
 
     public static Block.Properties stone(float s, float s2) {
-        return Block.Properties.of(Material.STONE, MaterialColor.STONE).sound(SoundType.STONE).strength(s, s2);
+        return Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(s, s2);
     }
 
     public static Block.Properties stoneWithOuterSoundType(float s, float s2, SoundType type) {
-        return Block.Properties.of(Material.STONE, MaterialColor.STONE).sound(type).strength(s, s2);
+        return Block.Properties.of().mapColor(MapColor.STONE).sound(type).strength(s, s2);
     }
 
     public static Block.Properties wood(float s, float s2) {
-        return Block.Properties.of(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).strength(s, s2);
+        return Block.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(s, s2);
     }
 
     private static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
