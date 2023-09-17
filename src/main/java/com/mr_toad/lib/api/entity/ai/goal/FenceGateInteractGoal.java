@@ -32,7 +32,7 @@ public abstract class FenceGateInteractGoal extends Goal {
         if (!this.hasGate) {
             return false;
         } else {
-            BlockState blockstate = this.mob.level.getBlockState(this.gatePos);
+            BlockState blockstate = this.mob.level().getBlockState(this.gatePos);
             if (!(blockstate.getBlock() instanceof FenceGateBlock)) {
                 this.hasGate = false;
                 return false;
@@ -44,9 +44,9 @@ public abstract class FenceGateInteractGoal extends Goal {
 
     protected void setOpen(boolean b) {
         if (this.hasGate) {
-            BlockState blockstate = this.mob.level.getBlockState(this.gatePos);
+            BlockState blockstate = this.mob.level().getBlockState(this.gatePos);
             if (blockstate.getBlock() instanceof FenceGateBlock) {
-                GoalHelper.setGateOpen(this.mob, this.mob.level, blockstate, this.gatePos, b);
+                GoalHelper.setGateOpen(this.mob, this.mob.level(), blockstate, this.gatePos, b);
             }
         }
 
