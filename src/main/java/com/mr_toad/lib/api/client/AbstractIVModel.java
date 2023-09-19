@@ -111,3 +111,4 @@ public abstract class AbstractVillagerIllagerModel <T extends Mob> extends Hiera
     public void translateToHand(HumanoidArm arm, PoseStack stack) {
         this.getArm(arm).translateAndRotate(stack);
     }
+}
