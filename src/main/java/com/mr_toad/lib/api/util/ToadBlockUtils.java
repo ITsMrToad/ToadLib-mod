@@ -21,7 +21,7 @@ public class ToadBlockUtils {
         ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
     }
 
-    private static boolean isTouchesLiquid(BlockGetter getter, BlockPos blockPos, BlockState state) {
+    public static boolean isTouchesLiquid(BlockGetter getter, BlockPos blockPos, BlockState state) {
 
         boolean flag = false;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = blockPos.mutable();
