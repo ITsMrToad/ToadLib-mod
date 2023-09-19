@@ -6,5 +6,6 @@ import net.minecraft.world.entity.Entity;
 
 public interface IFreezer<T extends Enity> {
     @Nullable T getIceCube();
+
     void setIceCube(@Nullable T target);
 }
