@@ -43,7 +43,7 @@ repositories {
 
 ## 2. Add ToadLib<version> to `dependencies` in `build.gradle`
 ```
-    implementation fg.deobf("maven.modrinth:toadlib:<version>")
+implementation fg.deobf("maven.modrinth:toadlib:<version>")
 ```
 
 * Replace <version> with the desired version of ToadLib.
