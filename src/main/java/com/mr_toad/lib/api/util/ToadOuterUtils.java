@@ -33,15 +33,6 @@ public class ToadDataUtils {
         return soundEventDeferredRegister.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(modid, name)));
     }
 
-    public static void blockBasedModel(Item item, String suffix) {
-        withExistingParent(itemName(item), resourceBlock(itemName(item) + suffix));
-    }
-
-
-    public static void itemGeneratedModel(Item item, ResourceLocation texture) {
-        withExistingParent(itemName(item), "item/generated").texture("layer0", texture);
-    }
-
     public static String itemName(Item item) {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
     }
