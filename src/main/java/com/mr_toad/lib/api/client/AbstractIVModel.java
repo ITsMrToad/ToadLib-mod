@@ -17,7 +17,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class AbstractVillagerIllagerModel <T extends Mob> extends HierarchicalModel<T> implements ArmedModel, HeadedModel {
+public abstract class AbstractIVModel <T extends Mob> extends HierarchicalModel<T> implements ArmedModel, HeadedModel {
 
     public final ModelPart root;
     public final ModelPart head;
@@ -26,7 +26,7 @@ public abstract class AbstractVillagerIllagerModel <T extends Mob> extends Hiera
     public final ModelPart rightArm;
     public final ModelPart leftArm;
 
-    public AbstractVillagerIllagerModel(ModelPart root) {
+    public AbstractIVModel(ModelPart root) {
         this.root = root;
         this.head = root.getChild("head");
         this.leftLeg = root.getChild("left_leg");
