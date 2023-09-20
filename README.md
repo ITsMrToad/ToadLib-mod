@@ -67,5 +67,8 @@ side = "BOTH"
 
 This is all. Enjoy your use
 
+### [Support Me On Boosty⚡](https://boosty.to/mr_toad)
+
+
 
 
