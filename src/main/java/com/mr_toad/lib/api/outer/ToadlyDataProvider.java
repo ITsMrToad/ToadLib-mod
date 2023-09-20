@@ -1,5 +1,6 @@
 package com.mr_toad.lib.api.outer;
 
+import com.mr_toad.lib.api.util.ToadOuterUtils;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.data.PackOutput;
@@ -9,12 +10,14 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class ToadlyDataProvider {
@@ -30,6 +33,20 @@ public class ToadlyDataProvider {
         }
     }
 
+    public abstract static class AbstractToadlyItemModelProvider extends ItemModelProvider {
+        public AbstractToadlyItemModelProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
+            super(output, modid, existingFileHelper);
+        }
+
+        public void blockBasedModel(Item item, String suffix, String modid) {
+            withExistingParent(ToadOuterUtils.itemName(item), ToadOuterUtils.resourceBlock(ToadOuterUtils.itemName(item) + suffix, modid));
+        }
+        
+        public void itemGeneratedModel(Item item, ResourceLocation texture) {
+            withExistingParent(ToadOuterUtils.itemName(item), "item/generated").texture("layer0", texture);
+        }
+    }
+    
     public abstract static class AbstractToadlyRecipeProvider  {
 
         public static ShapedRecipeBuilder shaped(ItemLike like) {
