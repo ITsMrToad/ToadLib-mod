@@ -1,7 +1,8 @@
 modLoader="javafml"
 loaderVersion="[43,)"
 license="LGPL V3"
-issueTrackerURL = "https://github.com/ITsMrToad/ToadLib-mod.git"
+issueTrackerURL = "https://github.com/ITsMrToad/ToadLib-mod/issues"
+
 [[mods]]
 modId="toadlib"
 version="1.0.1"
