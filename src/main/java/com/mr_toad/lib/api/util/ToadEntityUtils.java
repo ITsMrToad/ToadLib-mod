@@ -1,12 +1,16 @@
 package com.mr_toad.lib.api.util;
 
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.Strider;
-import net.minecraft.world.entity.monster.hoglin.Hoglin;
+import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.Collections;
 
@@ -30,7 +34,7 @@ public class ToadEntityUtils {
     }
 
 
-    public static void cookPotato(Villager vi) {
+      public static void cookPotato(Villager vi) {
 
         SimpleContainer simplecontainer = vi.getInventory();
 
@@ -48,12 +52,10 @@ public class ToadEntityUtils {
                 ItemStack itemstack = simplecontainer.addItem(new ItemStack(Items.BAKED_POTATO, l));
 
                 if (!itemstack.isEmpty()) {
-                    v.spawnAtLocation(itemstack, 0.5F);
+                    vi.spawnAtLocation(itemstack, 0.5F);
                 }
 
             }
         }
-
-
     }
 }
