@@ -43,23 +43,23 @@ public class BlockPropertyValues {
         return Block.Properties.of(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).strength(s, st2);
     }
 
-    private static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
+    public static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
         return true;
     }
 
-    private static boolean never(BlockState state, BlockGetter getter, BlockPos pos) {
+    public static boolean never(BlockState state, BlockGetter getter, BlockPos pos) {
         return false;
     }
 
-    private static boolean never(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
+    public static boolean never(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
         return false;
     }
 
-    private static boolean always(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
+    public static boolean always(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
         return true;
     }
 
-    private static ToIntFunction<BlockState> litBlockEmission(int llvl) {
+    public static ToIntFunction<BlockState> litBlockEmission(int llvl) {
         return (state) -> state.getValue(BlockStateProperties.LIT) ? llvl : 0;
     }
 }
