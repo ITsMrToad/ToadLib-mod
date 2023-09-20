@@ -16,6 +16,6 @@ Library for my mods. Contains utilities & abstractions.
 [[dependencies.toadlib]]
 modId="forge"
 mandatory=true
-versionRange="[45.1.0,)"
+versionRange="[44.1.0,)"
 ordering="NONE"
 side="BOTH"
