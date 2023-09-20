@@ -37,11 +37,11 @@ public class ToadDataUtils {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
     }
 
-    public static ResourceLocation resourceBlock(String path) {
-        return new ResourceLocation(VillageUpgrade.MODID, "block/" + path);
+    public static ResourceLocation resourceBlock(String path, String modid) {
+        return new ResourceLocation(modid, "block/" + path);
     }
 
-    public static ResourceLocation resourceItem(String path) {
-        return new ResourceLocation(VillageUpgrade.MODID, "item/" + path);
+    public static ResourceLocation resourceItem(String path, String modid) {
+        return new ResourceLocation(modid, "item/" + path);
     }
 }
