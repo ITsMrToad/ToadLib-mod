@@ -28,20 +28,8 @@ public class ToadDataUtils {
         return new ResourceLocation(modid, "item/" + path);
     }
 
-
     public static RegistryObject<SoundEvent> registerSounds(String name, String modid, DeferredRegister<SoundEvent> soundEventDeferredRegister) {
         return soundEventDeferredRegister.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(modid, name)));
     }
 
-    public static String itemName(Item item) {
-        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
-    }
-
-    public static ResourceLocation resourceBlock(String path, String modid) {
-        return new ResourceLocation(modid, "block/" + path);
-    }
-
-    public static ResourceLocation resourceItem(String path, String modid) {
-        return new ResourceLocation(modid, "item/" + path);
-    }
 }
