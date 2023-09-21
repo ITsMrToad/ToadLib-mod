@@ -12,7 +12,7 @@ This Lib required for ALL my mods
 
 ### <u>Announcements</u>📢 :
 
-* VillageUpgrade [not finished] (77%)
+* VillageUpgrade [not finished] (88%)
 * EndlessJourney [not finished] (8%)
 * H+ [not finished] (0%)
 * =Storm= [not finished] (0%)
