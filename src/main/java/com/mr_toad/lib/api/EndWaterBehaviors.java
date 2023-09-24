@@ -2,7 +2,6 @@ package com.mr_toad.lib.api;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.common.IExtensibleEnum;
 
 @MethodsReturnNonnullByDefault
