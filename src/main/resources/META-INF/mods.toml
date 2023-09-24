@@ -1,12 +1,14 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
+
 [[mods]]
 modId="toadlib"
 version="${mod_version}"
 displayName="${mod_name}"
 authors="${mod_authors}"
 description='''Library for my mods. Contains utilities & abstractions.'''
+logoFile="logo.png"
 
 [[dependencies.toadlib]]
 modId="forge"
