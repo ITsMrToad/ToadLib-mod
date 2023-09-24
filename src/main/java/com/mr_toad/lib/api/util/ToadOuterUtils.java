@@ -12,23 +12,23 @@ import java.util.Objects;
 
 public class ToadOuterUtils {
 
-    public String itemName(Item item) {
+    public static String itemName(Item item) {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
     }
 
-    public String itemName(Block block) {
+    public static String itemName(Block block) {
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
     }
 
-    public ResourceLocation resourceBlock(String path, String modid) {
+    public static ResourceLocation resourceBlock(String path, String modid) {
         return new ResourceLocation(modid, "block/" + path);
     }
 
-    public ResourceLocation resourceItem(String path, String modid) {
+    public static ResourceLocation resourceItem(String path, String modid) {
         return new ResourceLocation(modid, "item/" + path);
     }
 
-    public String advName(String name, String modid) {
+    public static String advName(String name, String modid) {
         return modid + ":" + name;
     }
 
