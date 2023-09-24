@@ -1,6 +1,5 @@
 package com.mr_toad.lib.api;
 
-import com.mr_toad.lib.api.enums.EndWaterBehaviors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
