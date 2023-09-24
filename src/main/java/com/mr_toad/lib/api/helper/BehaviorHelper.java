@@ -22,13 +22,13 @@ public class BehaviorHelper {
     private static final int INTERACT_DIST_SQR = 5;
     private static final float SPEED_MODIFIER = 0.5F;
 
-    protected boolean isWithinDistance(Mob mob, LivingEntity target, double distance) {
+    public static boolean isWithinDistance(Mob mob, LivingEntity target, double distance) {
         BlockPos blockPos = target.blockPosition();
         BlockPos blockPos1 = mob.blockPosition();
         return blockPos1.closerThan(blockPos, distance);
     }
 
-    public boolean tickConditionsInvolved(ServerLevel serverLevel, Villager vi, long l0) {
+    public static boolean tickConditionsInvolved(ServerLevel serverLevel, Villager vi, long l0) {
         Villager villager = (Villager) vi.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
         if (!(vi.distanceToSqr(villager) > INTERACT_DIST_SQR)) {
             BehaviorUtils.lockGazeAndWalkToEachOther(vi, villager, SPEED_MODIFIER);
@@ -41,7 +41,7 @@ public class BehaviorHelper {
 
     }
 
-    public void throwHalfStack(Villager villager, Set<Item> items, LivingEntity entity) {
+    public static void throwHalfStack(Villager villager, Set<Item> items, LivingEntity entity) {
         SimpleContainer simplecontainer = villager.getInventory();
         ItemStack itemstack = ItemStack.EMPTY;
         int i = 0;
