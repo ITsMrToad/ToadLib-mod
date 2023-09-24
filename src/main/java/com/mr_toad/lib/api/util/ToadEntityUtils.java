@@ -18,6 +18,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.Collections;
 
 public class ToadEntityUtils {
+    
     public static void addParrotImitation(EntityType<?> entityType, SoundEvent soundEvent) {
         Parrot.MOB_SOUND_MAP.put(entityType, soundEvent);
     }
