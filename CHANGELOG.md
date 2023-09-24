@@ -10,7 +10,7 @@ Add🔧:
 
 
 Remove✂️:
-* IRobber -> Reason : I found a better way to implement this
+* IRobber ; Reason : I found a better way to implement this
 
 Refactor✏️:
 * EndWaterBehaviors
