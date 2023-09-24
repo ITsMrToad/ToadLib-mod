@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ToadlyClientUtils {
 
-  public static ModelLayerLocation main(String modid, String name) {
+  public static ModelLayerLocation addMain(String modid, String name) {
         return register(modid, name, "main");
   }
 
