@@ -1,3 +1,27 @@
+Add🔧:
+* dir '/block'
+* dir '/item'
+* dir '/tab'
+* FilledBlockItem
+* FilledItem
+* FilledBlock
+
+
+Remove✂️:
+* IRobber -> Reason : I found a better way to implement this
+
+Refactor✏️:
+* EndWaterBehaviors
+* ColorHandlers
+* ToadlyArmorMaterial
+* ToadlyItemTier
+* CrossEntityOpenersCounter
+* ICrossEntityContainer
+* BlockPropertyValue
+* ItemPropertyValue
+* ICreativeTabFiller
+
+
 # 1.0.3 Version
 
 Now available on 1.19.3 🎉
