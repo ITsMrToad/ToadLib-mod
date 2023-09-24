@@ -80,7 +80,5 @@ public class BehaviorHelper {
         if (!itemstack.isEmpty()) {
             BehaviorUtils.throwItem(villager, itemstack, entity.position());
         }
-
     }
-
 }
