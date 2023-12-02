@@ -7,15 +7,15 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
-public interface EndMob<T extends LivingEntity> {
+public interface EndWaterMobInteractive<T extends LivingEntity> {
 
-    void getEndWaterBehavior(BlockPos pos, Level level, T entity );
+   void getEndWaterBehavior(BlockPos pos, Level level, T entity );
 
     default boolean getEndWaterBehaviors(T entity, DamageSource endWaterSource) {
-        switch (getEndWaterBehavior()) {
-            case HURT -> waterHurt(entity, endWaterSource);
-            case REGEN -> waterHeal(entity);
-            case INSTANT_DEATH -> waterKill(entity, endWaterSource);
+        switch (this.getEndWaterBehavior()) {
+            case HURT -> this.waterHurt(entity, endWaterSource);
+            case REGEN -> this.waterHeal(entity);
+            case INSTANT_DEATH -> this.waterKill(entity, endWaterSource);
         }
 
         return false;
@@ -24,15 +24,20 @@ public interface EndMob<T extends LivingEntity> {
     EndWaterBehaviors getEndWaterBehavior();
 
     default void waterAddEffect(T entity, DamageSource endWaterSource, MobEffect effect, int lvl, int ticks) {
-        if (!entity.isInvulnerableTo(endWaterSource) && getEndWaterBehavior() == EndWaterBehaviors.ADD_EFFECT) entity.addEffect(new MobEffectInstance(effect, lvl, ticks));
+        if (!entity.isInvulnerableTo(endWaterSource) && this.getEndWaterBehavior() == EndWaterBehaviors.ADD_EFFECT) {
+            entity.addEffect(new MobEffectInstance(effect, lvl, ticks));
+        }
     }
-
+ 
     default void waterKill(T entity, DamageSource endWaterSource) {
-        if (!entity.isInvulnerableTo(endWaterSource)) entity.hurt(endWaterSource, Float.MAX_VALUE);
+        if (!entity.isInvulnerableTo(endWaterSource)) {
+            entity.hurt(endWaterSource, Float.MAX_VALUE);
+        }
     }
-
     default void waterHurt(T entity, DamageSource endWaterSource) {
-        if (!entity.isInvulnerableTo(endWaterSource)) entity.hurt(endWaterSource, 1.0F);
+        if (!entity.isInvulnerableTo(endWaterSource)) {
+            entity.hurt(endWaterSource, 1.0F);
+        }
     }
 
     default void waterHeal(T entity) {
