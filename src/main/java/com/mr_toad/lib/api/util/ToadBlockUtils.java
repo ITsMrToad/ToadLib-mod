@@ -2,13 +2,17 @@ package com.mr_toad.lib.api.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import java.util.function.ToIntFunction;
 
 public class ToadBlockUtils {
 
@@ -19,7 +23,7 @@ public class ToadBlockUtils {
 
     public static void registerCompostables(ItemLike item, float chance) {
         ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
-    } //Add block to map COMPOSTABLES
+    } 
 
     public static boolean isTouchesLiquid(BlockGetter getter, BlockPos blockPos, BlockState state) {
 
@@ -39,6 +43,23 @@ public class ToadBlockUtils {
         }
 
         return flag;
+    }
+
+    public static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
+        return true;
+    }
+    public static boolean never(BlockState state, BlockGetter getter, BlockPos pos) {
+        return false;
+    }
+    public static boolean never(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
+        return false;
+    }
+    public static boolean always(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
+        return true;
+    }
+
+    public static ToIntFunction<BlockState> litBlockEmission(int llvl) {
+        return (state) -> state.getValue(BlockStateProperties.LIT) ? llvl : 0;
     }
 
 
