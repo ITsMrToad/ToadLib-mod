@@ -1,3 +1,21 @@
+# 1.0.5 Version
+
+Add🔧:
+* Boolean1N2
+* ToadlyArmorItem
+* FilledSpawnEggItem 
+
+Remove✂️:
+* IFrezzer ; Reason : Useless
+* IPlayer ; Reason : Useless
+
+Refactor✏️:
+* ToadlyArmorMaterial
+* ToadBlockUtils
+* ToadBlockUtils
+* EndWaterMobInteractive
+* CapeableMob
+
 # 1.0.4 Version
 
 Add🔧:
