@@ -12,7 +12,7 @@ This Lib required for ALL my mods
 
 ### <u>Announcements</u>📢 :
 
-* VillageUpgrade [not finished] (60%) P.S The mod turned out to be extremely unstable and I will have to rewrite it 😢 
+* VillageUpgrade [not finished] (60%) The mod turned out to be extremely unstable and I will have to rewrite it 😢 
 * EndlessJourney [not finished] (8%)
 * H+ [not finished] (47%)
 * MovieDecor [not finished] (10%)
