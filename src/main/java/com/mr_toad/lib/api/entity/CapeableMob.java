@@ -1,5 +1,5 @@
 package com.mr_toad.lib.api.entity;
 
-public interface ICapeableMob {
+public interface CapeableMob {
   void capeTick();
 }
