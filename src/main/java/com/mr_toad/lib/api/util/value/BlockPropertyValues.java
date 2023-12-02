@@ -1,19 +1,10 @@
 package com.mr_toad.lib.api.util.value;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
-import java.util.function.ToIntFunction;
-
-//Standart values for blocks
 public class BlockPropertyValues {
 
     public static Block.Properties plant() {
@@ -42,26 +33,6 @@ public class BlockPropertyValues {
 
     public static Block.Properties wood(float s, float s2) {
         return Block.Properties.of(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).strength(s, s2);
-    }
-
-    private static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
-        return true;
-    }
-
-    private static boolean never(BlockState state, BlockGetter getter, BlockPos pos) {
-        return false;
-    }
-
-    private static boolean never(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
-        return false;
-    }
-
-    private static boolean always(BlockState state, BlockGetter getter, BlockPos blockPos, EntityType<?> entityType) {
-        return true;
-    }
-
-    private static ToIntFunction<BlockState> litBlockEmission(int llvl) {
-        return (state) -> state.getValue(BlockStateProperties.LIT) ? llvl : 0;
     }
 
 }
