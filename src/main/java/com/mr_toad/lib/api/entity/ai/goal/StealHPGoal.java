@@ -1,6 +1,6 @@
-package com.mr_toad.h_plus.api;
+package com.mr_toad.lib.api.entity.ai.goal;
 
-import com.mr_toad.h_plus.core.config.HPConfig;
+import com.mr_toad.lib.api.util.time.IntegerCooldown;
 import it.unimi.dsi.fastutil.floats.FloatPredicate;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 @ParametersAreNonnullByDefault
 public class StealHPGoal extends MeleeAttackGoal {
 
-    public int cooldown = 200;
+    public final IntegerCooldown cooldown = new IntegerCooldown(200, "StealHPGoalCooldown");
 
     public final boolean configValue;
 
@@ -23,14 +23,6 @@ public class StealHPGoal extends MeleeAttackGoal {
     public final Predicate<Difficulty> difficultyPredicate;
 
     public final float hpRecovered;
-
-    public StealHPGoal(PathfinderMob mob, double speed, FloatPredicate hpPredicate, Predicate<Entity> entityPredicate, Predicate<Difficulty> difficultyPredicate, float hpRecovered) {
-        this(mob, speed, false, true, hpPredicate, entityPredicate, difficultyPredicate, hpRecovered);
-    }
-
-    public StealHPGoal(PathfinderMob mob, double speed, boolean followIfNotSeen, FloatPredicate hpPredicate, Predicate<Entity> entityPredicate, Predicate<Difficulty> difficultyPredicate, float hpRecovered) {
-        this(mob, speed, followIfNotSeen, true, hpPredicate, entityPredicate, difficultyPredicate, hpRecovered);
-    }
 
     public StealHPGoal(PathfinderMob mob, double speed, boolean followIfNotSeen, boolean configValue, FloatPredicate hpPredicate, Predicate<Entity> entityPredicate, Predicate<Difficulty> difficultyPredicate, float hpRecovered) {
         super(mob, speed, followIfNotSeen);
@@ -43,8 +35,8 @@ public class StealHPGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canUse() {
-        if (this.cooldown > 0) {
-            --this.cooldown;
+        if (this.cooldown.getCooldown() > 0) {
+            this.cooldown.tickDown();
             return false;
         } else {
             if (this.mob.getTarget() != null) {
@@ -63,9 +55,7 @@ public class StealHPGoal extends MeleeAttackGoal {
 
     @Override
     public void stop() {
-        int c1 = HPConfig.nightmareModeIsActive.get() ? 50 : 200;
-        int c2 = this.mob.level.getLevelData().isHardcore() ? 100 : 200;
-        this.cooldown = c1 + c2;
+        this.cooldown.reset();
         super.stop();
     }
 
