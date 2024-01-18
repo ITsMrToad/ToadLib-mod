@@ -1,4 +1,4 @@
-package com.mr_toad.lib.init;
+package com.mr_toad.lib.core.init;
 
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
