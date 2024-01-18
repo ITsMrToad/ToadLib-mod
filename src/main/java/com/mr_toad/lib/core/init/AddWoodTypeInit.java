@@ -8,7 +8,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
 
-public class WoodTypeInit {
+public class AddWoodTypeInit {
 
     private static final Map<String, WoodType> WOOD_TYPES = Maps.newHashMap();
 
