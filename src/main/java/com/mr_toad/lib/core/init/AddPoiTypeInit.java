@@ -5,7 +5,7 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class ObfuscationReflectionInit {
+public class AddPoiTypeInit {
     public static void registerPOIs(PoiType... poiTypes) {
         try {
             ObfuscationReflectionHelper.findMethod(PoiType.class, "registerBlockStates", PoiType.class).invoke(null, (Object) poiTypes);
