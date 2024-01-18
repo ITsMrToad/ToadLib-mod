@@ -1,15 +1,16 @@
 package com.mr_toad.lib.init;
 
+import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class WoodTypeInit {
 
-    private static final HashMap<String, WoodType> WOOD_TYPES = new HashMap<>();
+    private static final Map<String, WoodType> WOOD_TYPES = Maps.newHashMap();
 
     @OnlyIn(Dist.CLIENT)
     public static void atlas() {
