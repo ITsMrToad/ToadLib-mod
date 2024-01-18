@@ -1,4 +1,4 @@
-package com.mr_toad.h_plus.common.util;
+package com.mr_toad.lib.event;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
