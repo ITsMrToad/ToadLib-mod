@@ -1,4 +1,4 @@
-package com.mr_toad.lib.init;
+package com.mr_toad.lib.core.init;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.Sheets;
