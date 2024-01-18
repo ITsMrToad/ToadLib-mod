@@ -15,8 +15,10 @@ public abstract class FenceGateInteractGoal extends Goal {
 
     protected Mob mob;
     protected BlockPos gatePos = BlockPos.ZERO;
+  
     protected boolean hasGate;
-    private boolean passed;
+    protected boolean passed;
+  
     private float gateOpenDirX;
     private float gateOpenDirZ;
 
@@ -24,32 +26,8 @@ public abstract class FenceGateInteractGoal extends Goal {
         this.mob = m;
 
         if (!GoalUtils.hasGroundPathNavigation(m)) {
-            throw new IllegalArgumentException("Unsupported mob type for GateInteractGoal");
+            throw new IllegalArgumentException("Unsupported mob type for FenceGateInteractGoal");
         }
-    }
-
-    protected boolean isOpen() {
-        if (!this.hasGate) {
-            return false;
-        } else {
-            BlockState blockstate = this.mob.level.getBlockState(this.gatePos);
-            if (!(blockstate.getBlock() instanceof FenceGateBlock)) {
-                this.hasGate = false;
-                return false;
-            } else {
-                return blockstate.getValue(FenceGateBlock.OPEN);
-            }
-        }
-    }
-
-    protected void setOpen(boolean b) {
-        if (this.hasGate) {
-            BlockState blockstate = this.mob.level.getBlockState(this.gatePos);
-            if (blockstate.getBlock() instanceof FenceGateBlock) {
-                GoalHelper.setGateOpen(this.mob, this.mob.level, blockstate, this.gatePos, b);
-            }
-        }
-
     }
 
     @Override
@@ -110,4 +88,30 @@ public abstract class FenceGateInteractGoal extends Goal {
             this.passed = true;
         }
     }
+
+
+    protected boolean isOpen() {
+        if (!this.hasGate) {
+            return false;
+        } else {
+            BlockState blockstate = this.mob.level.getBlockState(this.gatePos);
+            if (!(blockstate.getBlock() instanceof FenceGateBlock)) {
+                this.hasGate = false;
+                return false;
+            } else {
+                return blockstate.getValue(FenceGateBlock.OPEN);
+            }
+        }
+    }
+
+    protected void setOpen(boolean b) {
+        if (this.hasGate) {
+            BlockState blockstate = this.mob.level.getBlockState(this.gatePos);
+            if (blockstate.getBlock() instanceof FenceGateBlock) {
+                GoalHelper.setGateOpen(this.mob, this.mob.level, blockstate, this.gatePos, b);
+            }
+        }
+
+    }
+
 }
