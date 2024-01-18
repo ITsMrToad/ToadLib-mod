@@ -1,12 +1,11 @@
 package com.mr_toad.lib.api.entity.ai.goal;
 
 import com.mr_toad.lib.api.util.BlowUpDataContainer;
+import com.mr_toad.lib.api.util.SpawnLingeringCloudData;
 import it.unimi.dsi.fastutil.floats.FloatPredicate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.EnumSet;
 
 public class BlowUpGoal<M extends PathfinderMob & BlowUpDataContainer> extends Goal {
@@ -27,27 +25,27 @@ public class BlowUpGoal<M extends PathfinderMob & BlowUpDataContainer> extends G
     private float explosionRadius;
     private final double distToSqr;
 
-    private final boolean shouldSpawnLingeringCloud;
     private final boolean shouldStopOnExplosion;
     private final boolean shouldExplodeIfNotSee;
     private final boolean invulnerableIfIgnited;
 
     @Nullable private final FloatPredicate hpPredicate;
     @Nullable private final SoundEvent explosionSound;
+    @Nullable private final SpawnLingeringCloudData lingeringCloudData;
 
     @Nullable private LivingEntity target;
 
-    public BlowUpGoal(M mob, float explosionRadius, int maxSwell, double distToSqr, boolean shouldSpawnLingeringCloud, boolean shouldStopOnExplosion, boolean shouldExplodeIfNotSee, boolean invulnerableIfIgnited, @Nullable FloatPredicate hpPredicate, @Nullable SoundEvent explosionSound) {
+    public BlowUpGoal(M mob, float explosionRadius, int maxSwell, double distToSqr, boolean shouldStopOnExplosion, boolean shouldExplodeIfNotSee, boolean invulnerableIfIgnited, @Nullable FloatPredicate hpPredicate, @Nullable SoundEvent explosionSound, @Nullable SpawnLingeringCloudData lingeringCloudData) {
         this.mob = mob;
         this.explosionRadius = explosionRadius;
         this.maxSwell = maxSwell;
         this.distToSqr = distToSqr;
-        this.shouldSpawnLingeringCloud = shouldSpawnLingeringCloud;
         this.shouldStopOnExplosion = shouldStopOnExplosion;
         this.shouldExplodeIfNotSee = shouldExplodeIfNotSee;
         this.invulnerableIfIgnited = invulnerableIfIgnited;
         this.hpPredicate = hpPredicate;
         this.explosionSound = explosionSound;
+        this.lingeringCloudData = lingeringCloudData;
 
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
@@ -156,27 +154,10 @@ public class BlowUpGoal<M extends PathfinderMob & BlowUpDataContainer> extends G
             this.mob.dead = true;
             this.mob.level.explode(this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), this.explosionRadius, Level.ExplosionInteraction.MOB);
             this.mob.discard();
-            if (this.shouldSpawnLingeringCloud) {
-                this.spawnLingeringCloud();
+            if (this.lingeringCloudData != null) {
+                this.lingeringCloudData.spawn();
             }
         }
     }
 
-    private void spawnLingeringCloud() {
-        Collection<MobEffectInstance> effects = this.mob.getActiveEffects();
-        if (!effects.isEmpty()) {
-            AreaEffectCloud cloud = new AreaEffectCloud(this.mob.level, this.mob.getX(), this.mob.getY(), this.mob.getZ());
-            cloud.setRadius(2.5F);
-            cloud.setRadiusOnUse(-0.5F);
-            cloud.setWaitTime(10);
-            cloud.setDuration(cloud.getDuration() / 2);
-            cloud.setRadiusPerTick(-cloud.getRadius() / (float) cloud.getDuration());
-
-            for (MobEffectInstance effectInstance : effects) {
-                cloud.addEffect(new MobEffectInstance(effectInstance));
-            }
-
-            this.mob.level.addFreshEntity(cloud);
-        }
-    }
 }
