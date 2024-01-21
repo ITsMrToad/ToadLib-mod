@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.mr_toad.lib.core.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "refmap": "endlessjourney.refmap.json",
+  "mixins": [
+    "ServerLevelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
