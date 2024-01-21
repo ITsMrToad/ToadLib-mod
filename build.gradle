@@ -1,19 +1,25 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        mavenCentral()
         maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
+        maven { url = 'https://files.minecraftforge.net/maven' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: "org.spongepowered", name: "mixingradle", version: "0.7-SNAPSHOT"
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'idea'
+apply plugin: "org.spongepowered.mixin"
 
-version = "${project.minecraft}-${project.modVersion}"
+mixin {
+    add sourceSets.main, "${project.modId}.refmap.json"
+}
+
+version = "${project.minecraftX}-${project.modVersion}"
 group = 'com.mr_toad'
 archivesBaseName = 'ToadLib'
 
@@ -34,6 +40,8 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
+            arg "-mixin.config=" + project.modId + ".mixins.json"
+
             mods {
                 examplemod {
                     source sourceSets.main
@@ -47,6 +55,8 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
+            arg "-mixin.config=" + project.modId + ".mixins.json"
+
             mods {
                 toadlib {
                     source sourceSets.main
@@ -59,8 +69,12 @@ minecraft {
 
         data {
             workingDirectory project.file("run")
+
             property "forge.logging.markers", "REGISTRIES"
             property "forge.logging.console.level", "debug"
+
+            property "mixin.env.remapRefMap", "true"
+            property "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
 
             args dataArgs
             mods {
@@ -73,15 +87,15 @@ minecraft {
     }
 }
 
-
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-repositories {
-}
+repositories {}
 
 dependencies {
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
     minecraft 'net.minecraftforge:forge:1.19.4-45.1.0'
 }
+
 
 jar {
     manifest {
@@ -92,12 +106,11 @@ jar {
                 "Implementation-Title"    : project.modName,
                 "Implementation-Version"  : project.modVersion,
                 "Implementation-Vendor"   : project.modAuthor,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : project.modId + ".mixins.json"
         ])
     }
 }
-
-
 
 jar.finalizedBy('reobfJar')
 
