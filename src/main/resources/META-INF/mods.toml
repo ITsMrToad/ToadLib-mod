@@ -5,7 +5,7 @@ issueTrackerURL = "https://github.com/ITsMrToad/ToadLib-mod/issues"
 
 [[mods]]
 modId="toadlib"
-version="1.0.5"
+version="1.0.6"
 displayName="ToadLib"
 logoFile="logo.png"
 authors="Mr.Toad"
