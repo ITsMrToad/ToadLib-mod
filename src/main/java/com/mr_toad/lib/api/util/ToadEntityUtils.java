@@ -10,7 +10,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import java.util.Collections;
 
@@ -34,23 +33,22 @@ public class ToadEntityUtils {
     }
 
 
-    public static void cookPotato(Villager vi) {
+    public static void villagerCraftItem(Villager villager, Item result, Item ingredient, int maxCount) {
+        SimpleContainer simplecontainer = villager.getInventory();
 
-        SimpleContainer simplecontainer = vi.getInventory();
-
-        if (simplecontainer.countItem(Items.BAKED_POTATO) <= 32) {
-            int i = simplecontainer.countItem(Items.POTATO);
+        if (simplecontainer.countItem(result) <= maxCount) {
+            int i = simplecontainer.countItem(ingredient);
             int j = 1;
             int k = 1;
             int l = Math.min(j, i / j);
 
             if (l != 0) {
                 int i1 = l * k;
-                simplecontainer.removeItemType(Items.POTATO, i1);
-                ItemStack itemstack = simplecontainer.addItem(new ItemStack(Items.BAKED_POTATO, l));
+                simplecontainer.removeItemType(ingredient, i1);
+                ItemStack itemstack = simplecontainer.addItem(new ItemStack(result, l));
 
                 if (!itemstack.isEmpty()) {
-                    vi.spawnAtLocation(itemstack, 0.5F);
+                    villager.spawnAtLocation(itemstack, 0.5F);
                 }
 
             }
