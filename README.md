@@ -12,7 +12,7 @@ This Lib required for ALL my mods
 
 ### <u>Announcements</u>📢 :
 
-* VillageUpgrade [not finished] (40%) The mod turned out to be extremely unstable and I will have to rewrite it 😢 
+* VillageUpgrade [❄️frozen❄️] (40%)
 * EndlessJourney [not finished] (8%)
 * H+ [Beta release - 23 January] (99%) 💠
 * Storm [not finished] (50%)
