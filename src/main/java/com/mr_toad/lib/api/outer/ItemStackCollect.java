@@ -1,36 +1,43 @@
 package com.mr_toad.lib.api.outer;
 
+import com.google.common.collect.Lists;
 import com.mr_toad.lib.core.ToadLib;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class ItemStackCollect {
 
     @SafeVarargs
-    public static <T> Collection<T> collectAll(Set<? extends T> src, T... items) {
-        List<T> ret = Arrays.asList(items);
-        for (T item : items) {
+    public static <I> Collection<I> collectAll(Set<? extends I> src, I... items) {
+        List<I> ret = Arrays.asList(items);
+        for (I item : items) {
             if (!src.contains(item)) {
-                ToadLib.LOGGER.warn("Item {} not found", item);
+                ToadLib.LOGGER.warn("[Collect] Item: {} not found", item);
             }
         }
 
         return ret;
     }
 
-    public static <T> Collection<T> collectAll(Set<T> src, Predicate<T> pred) {
-        List<T> ret = new ArrayList<>();
+    public static <I> Collection<I> collectAll(Set<I> set, Predicate<I> predicate) {
+        List<I> ret = Lists.newArrayList();
 
-        Iterator<T> iter = src.iterator();
-        while (iter.hasNext()) {
-            T item = iter.next();
-            if (pred.test(item)) {
-                iter.remove();
+        Iterator<I> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            I item = iterator.next();
+            if (predicate.test(item)) {
+                iterator.remove();
                 ret.add(item);
             }
         }
 
         return ret;
     }
+
 }
+
