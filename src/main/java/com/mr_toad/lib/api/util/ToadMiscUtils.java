@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 
-public class ToadOuterUtils {
+public class ToadMiscUtils {
 
     public static String itemName(Item item) {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
