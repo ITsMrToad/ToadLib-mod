@@ -32,6 +32,7 @@ Refactor✏️:
 * ToadEntityUtils
 * GenerationWorker
 * FenceGateInteractGoal
+* ItemStackCollect
 
 # 1.0.5 Version
 
