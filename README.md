@@ -14,7 +14,9 @@ This Lib required for ALL my mods
 
 * VillageUpgrade [❄️frozen❄️] (40%)
 * EndlessJourney [not finished] (8%)
-* H+ [Beta release - 23 January] (99%) 💠
+* H+ [Beta release out now... but under review on modrith] (100%) 💠
+* HS [not finished] (0%)
+* HN [not finished] (0%)
 * Storm [not finished] (50%)
 * And Outer
 
