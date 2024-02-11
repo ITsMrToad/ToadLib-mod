@@ -1,4 +1,4 @@
-package com.mr_toad.nmb.api;
+package com.mr_toad.lib.api.util.time;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.util.Mth;
@@ -18,7 +18,7 @@ public class UniformIntegerCooldown {
     public final RandomSource RANDOM = RandomSource.create();
 
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final Marker MARKER = MarkerFactory.getMarker("Cooldown");
+    public static final Marker MARKER = MarkerFactory.getMarker("UniformCooldown");
 
     public boolean immutable;
     public int sample;
