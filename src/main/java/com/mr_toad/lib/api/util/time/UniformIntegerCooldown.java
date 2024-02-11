@@ -106,3 +106,4 @@ public class UniformIntegerCooldown {
     public String toString() {
         return "<uniform int cooldown value: name = " + this.getName() + ", cooldown = " + this.getSample() + ">";
     }
+}
