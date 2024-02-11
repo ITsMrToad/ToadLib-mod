@@ -1,3 +1,15 @@
+# 1.0.7 Version
+
+Add🔧:
+* ToadlyEntityDataSerializers
+* Disposable
+* UniformIntegerCooldown
+* CopyOwnerTargetGoal
+
+Refactor✏️:
+* MobFollowAdultMobGoal
+* EntityDataContainer
+
 # 1.0.6 Version
 
 Add🔧:
