@@ -5,12 +5,13 @@ issueTrackerURL = "https://github.com/ITsMrToad/ToadLib-mod/issues"
 
 [[mods]]
 modId="toadlib"
-version="1.0.7"
+version="1.1.0"
 displayName="ToadLib"
 logoFile="logo.png"
 authors="Mr.Toad"
 description='''
 Library for my mods. Contains utilities & abstractions.
+MtJava part of toadlib - custom lib for java 
 '''
 
 [[dependencies.toadlib]]
