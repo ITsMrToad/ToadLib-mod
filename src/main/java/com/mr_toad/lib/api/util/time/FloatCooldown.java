@@ -13,11 +13,11 @@ public class FloatCooldown {
 
     public static final FloatCooldown BASIC = FloatCooldown.createNoName(500);
 
-    public static FloatCooldown createNoName(int cooldown) {
+    public static FloatCooldown createNoName(float cooldown) {
         return new FloatCooldown(cooldown, null);
     }
 
-    public FloatCooldown(int cooldown, @Nullable String name) {
+    public FloatCooldown(float cooldown, @Nullable String name) {
         this.cooldown = cooldown;
         if (name == null || name.isEmpty()) {
             name = this.toString();
