@@ -1,12 +1,9 @@
 package com.mr_toad.lib.api.util.time;
 
-import com.mojang.logging.LogUtils;
+import com.mr_toad.lib.core.ToadLib;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
 
 public class UniformIntegerCooldown {
     
@@ -15,10 +12,7 @@ public class UniformIntegerCooldown {
 
     public final String name;
 
-    public final RandomSource RANDOM = RandomSource.create();
-
-    public static final Logger LOGGER = LogUtils.getLogger();
-    public static final Marker MARKER = MarkerFactory.getMarker("UniformCooldown");
+    public final RandomSource RANDOM = RandomSource.createNewThreadLocalInstance();
 
     public boolean immutable;
     public int sample;
@@ -79,7 +73,7 @@ public class UniformIntegerCooldown {
         } else {
             if (this.getSample() < 0) {
                 this.setCooldown(0, 0);
-                LOGGER.error(MARKER, "Cooldown value with name: {} cannot be negative", this.getName());
+                ToadLib.LOGGER.error(MARKER, "Cooldown value with name: {} cannot be negative", this.getName());
             }
 
         }
