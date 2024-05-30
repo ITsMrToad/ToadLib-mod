@@ -18,4 +18,7 @@ public class DifficultyPredicates {
         return lvl.getCurrentDifficultyAt(pos).isHarderThan((float)Difficulty.NORMAL.ordinal());
     }
 
+    public static boolean isPeaceful(Level level) {
+        return level.getDifficulty() == Difficulty.PEACEFUL;
+    }
 }
