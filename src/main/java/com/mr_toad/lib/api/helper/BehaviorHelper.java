@@ -1,8 +1,6 @@
 package com.mr_toad.lib.api.helper;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.worldgen.biome.EndBiomes;
-import net.minecraft.data.worldgen.biome.NetherBiomes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,15 +10,12 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.phys.Vec3;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class BehaviorHelper {
-
-    private static final int INTERACT_DIST_SQR = 5;
-    private static final float SPEED_MODIFIER = 0.5F;
 
     public static boolean isWithinDistance(Mob mob, LivingEntity target, double distance) {
         BlockPos blockPos = target.blockPosition();
@@ -28,20 +23,40 @@ public class BehaviorHelper {
         return blockPos1.closerThan(blockPos, distance);
     }
 
-    public static boolean tickConditionsInvolved(ServerLevel serverLevel, Villager vi, long l0) {
-        Villager villager = (Villager) vi.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
-        if (!(vi.distanceToSqr(villager) > INTERACT_DIST_SQR)) {
-            BehaviorUtils.lockGazeAndWalkToEachOther(vi, villager, SPEED_MODIFIER);
-            vi.gossip(serverLevel, villager, l0);
-            return true;
-        } else {
-            return false;
+    public static boolean tickConditionsInvolved(ServerLevel serverLevel, LivingEntity owner, long time) {
+        return BehaviorHelper.tickConditionsInvolved(serverLevel, owner, l0, 5.0F, 0.5F);
+    }
 
+    public static boolean tickConditionsInvolved(ServerLevel serverLevel, LivingEntity owner, long time, float dist, float speed) {
+        Optional<LivingEntity> optional = owner.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET);
+        if (optional.isEmpty()) {
+            return false;
+        } else {
+            LivingEntity entity = optional.get();
+            if (!(owner.distanceToSqr(entity) > dist)) {
+                BehaviorUtils.lockGazeAndWalkToEachOther(owner, entity, speed);
+                if (entity instanceof Villager villager) {
+                    if (owner instanceof Villager ov) {
+                        ov.gossip(serverLevel, villager, l0);
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
-    public static void throwHalfStack(Villager villager, Set<Item> items, LivingEntity entity) {
-        SimpleContainer simplecontainer = villager.getInventory();
+    public static<E extends LivingEntity & InventoryCarrier> void throwQuarterStack(E entity, Set<Item> items, Vec3 vec) {
+        BehaviorHelper.throwCounted(entity, items, vec, 4);
+    }
+
+    public static<E extends LivingEntity & InventoryCarrier> void throwHalfStack(E entity, Set<Item> items, Vec3 vec) {
+        BehaviorHelper.throwCounted(entity, items, vec, 2);
+    }
+
+    public static<E extends LivingEntity & InventoryCarrier> void throwCounted(E entity, Set<Item> items, Vec3 vec, int divider) {
+        SimpleContainer simplecontainer = entity.getInventory();
         ItemStack itemstack = ItemStack.EMPTY;
         int i = 0;
 
@@ -49,14 +64,13 @@ public class BehaviorHelper {
             ItemStack itemStack1;
             Item item;
             int j;
-            label28:
-            {
+            label28:{
                 itemStack1 = simplecontainer.getItem(i);
                 if (!itemStack1.isEmpty()) {
                     item = itemStack1.getItem();
                     if (items.contains(item)) {
                         if (itemStack1.getCount() > itemStack1.getMaxStackSize() / 2) {
-                            j = itemStack1.getCount() / 2;
+                            j = itemStack1.getCount() / divider;
                             break label28;
                         }
 
@@ -66,7 +80,6 @@ public class BehaviorHelper {
                         }
                     }
                 }
-
                 ++i;
                 continue;
             }
@@ -77,7 +90,7 @@ public class BehaviorHelper {
         }
 
         if (!itemstack.isEmpty()) {
-            BehaviorUtils.throwItem(villager, itemstack, entity.position());
+            BehaviorUtils.throwItem(entity, itemstack, vec);
         }
 
     }
