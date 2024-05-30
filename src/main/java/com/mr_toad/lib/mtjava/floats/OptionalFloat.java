@@ -1,17 +1,14 @@
 package com.mr_toad.lib.mtjava.floats;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Preconditions;
 import com.mr_toad.lib.mtjava.floats.func.FloatSupplier;
-import it.unimi.dsi.fastutil.SafeMath;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import it.unimi.dsi.fastutil.floats.FloatConsumer;
 
 import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 public final class OptionalFloat {
 
@@ -90,16 +87,16 @@ public final class OptionalFloat {
         }
     }
 
-    public DoubleStream stream() {
+    public Stream<Float> stream() {
         if (this.isPresent) {
-            return DoubleStream.of(SafeMath.safeDoubleToFloat(this.value));
+            return Stream.of(this.value);
         } else {
-            return DoubleStream.empty();
+            return Stream.empty();
         }
     }
 
     public OptionalFloat map(Float2FloatFunction mapper) {
-        Objects.requireNonNull(mapper);
+        Preconditions.checkNotNull(mapper);
         if (!isPresent()) {
             return empty();
         } else {
