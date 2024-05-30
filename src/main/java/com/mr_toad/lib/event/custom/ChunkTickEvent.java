@@ -5,20 +5,16 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
 
-import java.util.function.BooleanSupplier;
-
 public class ChunkTickEvent extends TickEvent {
 
     private final ServerLevel serverLevel;
     private final LevelChunk chunk;
-    private final BooleanSupplier haveTime;
 
-    public ChunkTickEvent(Phase phase, ServerLevel serverLevel, LevelChunk chunk, BooleanSupplier haveTime) {
+    public ChunkTickEvent(Phase phase, ServerLevel serverLevel, LevelChunk chunk) {
         super(Type.SERVER, LogicalSide.SERVER, phase);
 
         this.serverLevel = serverLevel;
         this.chunk = chunk;
-        this.haveTime = haveTime;
     }
 
     public ServerLevel getServerLevel() {
@@ -28,9 +24,4 @@ public class ChunkTickEvent extends TickEvent {
     public LevelChunk getChunk() {
         return this.chunk;
     }
-
-    public boolean haveTime() {
-        return this.haveTime.getAsBoolean();
-    }
-
 }
