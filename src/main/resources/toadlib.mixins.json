@@ -3,7 +3,7 @@
   "package": "com.mr_toad.lib.core.mixin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
-  "refmap": "endlessjourney.refmap.json",
+  "refmap": "toadlib.refmap.json",
   "mixins": [
     "ServerLevelMixin"
   ],
