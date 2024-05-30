@@ -23,15 +23,9 @@ public class ToadEntityUtils {
         Collections.addAll(Parrot.TAME_FOOD, items);
     }
 
-
-    public static boolean isArmorerOrToolSmithOrWeaponSmith(Villager vi) {
-        return vi.getVillagerData().getProfession() == VillagerProfession.ARMORER || vi.getVillagerData().getProfession() == VillagerProfession.TOOLSMITH || vi.getVillagerData().getProfession() == VillagerProfession.WEAPONSMITH;
-    }
-
     public static boolean isHero(Player player) {
         return player.hasEffect(MobEffects.HERO_OF_THE_VILLAGE);
     }
-
 
     public static void villagerCraftItem(Villager villager, Item result, Item ingredient, int maxCount) {
         SimpleContainer simplecontainer = villager.getInventory();
