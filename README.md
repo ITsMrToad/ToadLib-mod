@@ -6,20 +6,20 @@ This Lib required for ALL my mods
 
 * Property utilities
 * BlockAndItem utilities
+* Entity utilities
+* Entity AI utilities
+* MtJava(Java expansions)
 * WorldGen utilities
-* Entity Abstractions 
+* Additional Tags
 * And outer
 
 ### <u>Announcements</u>📢 :
 
 * VillageUpgrade [❄️frozen❄️] (40%)
 * EndlessJourney [not finished] (8%)
-* H+ [Beta release out now... but under review on modrith] (100%) 💠
-* HS [not finished] (0%)
-* HN [not finished] (0%)
-* Storm [not finished] (50%)
-* And Outer
-
+* H+ [finished, supported] (100%) 💠
+* HN [not finished] (20%)
+* Storm [not finished] (60%)
 
 # Quick Guide For Developers 📖
 
