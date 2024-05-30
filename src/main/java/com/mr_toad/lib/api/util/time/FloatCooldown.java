@@ -1,17 +1,13 @@
 package com.mr_toad.lib.api.util.time;
 
+import com.mr_toad.lib.core.ToadLib;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FloatCooldown {
 
     public float cooldown;
     @Nullable public final String name;
     public boolean immutable = false;
-    public static final Logger LOGGER = LoggerFactory.getLogger("Cooldown");
-
-    public static final FloatCooldown BASIC = FloatCooldown.createNoName(500);
 
     public static FloatCooldown createNoName(float cooldown) {
         return new FloatCooldown(cooldown, null);
@@ -62,7 +58,7 @@ public class FloatCooldown {
 
         if (this.getCooldown() < -1) {
             this.setCooldown(0);
-            LOGGER.error("Cooldown value with name: {} cannot be lower than -1", this.getName());
+            ToadLib.LOGGER.error("Cooldown value with name: {} cannot be lower than -1", this.getName());
         }
 
     }
