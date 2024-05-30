@@ -18,16 +18,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Supplier;
 
-@Mixin(ServerLevel.class)
+@Mixin(value = ServerLevel.class, priority = 500)
 public abstract class ServerLevelMixin extends Level implements WorldGenLevel {
 
     protected ServerLevelMixin(WritableLevelData data, ResourceKey<Level> key, RegistryAccess access, Holder<DimensionType> dimensionType, Supplier<ProfilerFiller> profilerFiller, boolean aB01, boolean aB02, long s, int i0) {
         super(data, key, access, dimensionType, profilerFiller, aB01, aB02, s, i0);
     }
 
-    @Inject(method = "tickChunk", at = @At("TAIL"))
-    public void tickChunk(LevelChunk chunk, int i0, CallbackInfo ci) {
-        ToadEventFactory.onChunkTick(this.getLevel(), chunk, () -> true);
+    @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/LevelChunk;getPos()Lnet/minecraft/world/level/ChunkPos;", shift = At.Shift.BEFORE))
+    public void eventChunkStart(LevelChunk chunk, int i0, CallbackInfo ci) {
+        ToadEventFactory.onChunkTickStart(this.getLevel(), chunk);
     }
 
+    @Inject(method = "tickChunk", at = @At("TAIL"))
+    public void eventChunkEnd(LevelChunk chunk, int i0, CallbackInfo ci) {
+        ToadEventFactory.onChunkTickEnd(this.getLevel(), chunk);
+    }
 }
