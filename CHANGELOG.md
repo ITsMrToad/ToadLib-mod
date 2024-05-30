@@ -1,3 +1,43 @@
+# 1.1.0 Version
+
+Add🔧:
+* mtjava package
+* CapeableMobListener
+* Mixin plugins
+* Hybrid attack ai for entities
+* Integrable
+
+Refactor✏️:
+* UniformIntegerCooldown
+* IntegerCooldown
+* FloatCooldown
+* BehaviorHelper
+* ToadOuterUtils
+* ToadEntityUtils
+* ToadlyEntityDataSerializers
+* ToadEventFactory
+* ServerLevelMixin
+* ChunkTickEvent
+* EndWaterBehaviors
+* DifficultyPredicates
+
+Fixes🔥:
+* ToadOuterUtils
+* BehaviorHelper
+* FloatCooldown
+* ToadLib(Main)
+
+Remove✂️:
+* Disposable, reason - useless
+* CapeableMob, reason - replcaed with CapeableMobListener
+* AbstractCapeableSpellcasterIllager, reason - replaced with CapeableMobListener
+* AbstractCapeableIllager, reason - replaced with CapeableMobListener
+* DefaultEntityGoals, reason - useless
+* package 'tab', reason - useless
+* GoalHelper, reason - not works...
+* ItemStackCollect, reason - useless
+* AddPoiTypeInit, reason - useless
+
 # 1.0.7 Version
 
 Add🔧:
@@ -9,6 +49,7 @@ Add🔧:
 Refactor✏️:
 * MobFollowAdultMobGoal
 * EntityDataContainer
+* ChunkTickEvent
 
 # 1.0.6 Version
 
@@ -35,8 +76,9 @@ Add🔧:
 * ServerLevelMixin
 
 Remove✂️:
-* Boolean1N2 ; Reason : Useless
-* NetherMob ; Reason : Replcaed with tag("nether_mobs")
+* Boolean1N2 ; Reason - useless
+* NetherMob ; Reason - replcaed with tag("nether_mobs")
+* AbstractVIModel ; Reason - useless
 
 Refactor✏️:
 * build.gradle
