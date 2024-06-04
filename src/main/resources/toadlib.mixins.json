@@ -6,7 +6,8 @@
   "refmap": "toadlib.refmap.json",
   "mixins": [
     "EntityMixin",
-    "NameTagItemMixin"
+    "NameTagItemMixin",
+    "ServerLevelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
