@@ -1,8 +1,8 @@
 package com.mr_toad.lib.mtjava.util;
 
-import net.minecraft.util.Pair;
+import net.minecraft.util.Tuple;
 
-public class ImmutableTuple<A, B> extends Pair<A, B> {
+public class ImmutableTuple<A, B> extends Tuple<A, B> {
 
     public ImmutableTuple(A left, B right) {
         super(left, right);
@@ -10,13 +10,13 @@ public class ImmutableTuple<A, B> extends Pair<A, B> {
 
     @Deprecated
     @Override
-    public void setLeft(A left) {
+    public void setA(A left) {
         throw new UnsupportedOperationException();
     }
 
     @Deprecated
     @Override
-    public final void setRight(B right) {
+    public final void setB(B right) {
         throw new UnsupportedOperationException();
     }
 }
