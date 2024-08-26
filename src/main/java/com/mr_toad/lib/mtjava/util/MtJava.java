@@ -10,7 +10,7 @@ public class MtJava {
         return ImmutablePair.of(pair.getFirst(), pair.getSecond());
     }
 
-    public static<A, B, T extends net.minecraft.util.Pair<A, B>> ImmutableTuple<A, B> toImmutableTuple(T tuple) {
-        return new ImmutableTuple<>(tuple.getLeft(), tuple.getRight());
+    public static<A, B, T extends Tuple<A, B>> ImmutableTuple<A, B> toImmutableTuple(T tuple) {
+        return new ImmutableTuple<>(tuple.getA(), tuple.getB());
     }
 }
