@@ -29,7 +29,7 @@ public abstract class AbstractGameDataNbtStorage<L> {
     private final ToStringFunction<L> flow;
 
     public AbstractGameDataNbtStorage(String child, ToStringFunction<L> flow) {
-        this.dir = new File(Minecraft.getInstance().gameDirectory, child);
+        this.dir = new File( MinecraftClient.getInstance().runDirectory, "toadlib/database/" + child);
         this.flow = flow;
     }
 
