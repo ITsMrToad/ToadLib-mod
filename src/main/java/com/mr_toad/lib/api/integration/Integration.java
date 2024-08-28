@@ -2,7 +2,8 @@ package com.mr_toad.lib.api.integration;
 
 import net.minecraftforge.fml.ModList;
 
-public interface Integrable {
+@FunctionalInterface
+public interface Integration {
 
     String modid();
 
