@@ -1,6 +1,7 @@
 name: Lib violation or bug report
 description: API violation report.
 labels: [bug, lib]
+assignees: ITsMrToad
 body:
   - type: dropdown
     id: oses
