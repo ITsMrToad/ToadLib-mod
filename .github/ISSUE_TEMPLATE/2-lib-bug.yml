@@ -1,5 +1,5 @@
-name: Lib violation or bug report
-description: API violation report.
+name: Lib irregularities
+description: Lib irregularities report in development.
 labels: [bug, lib]
 assignees: ITsMrToad
 body:
