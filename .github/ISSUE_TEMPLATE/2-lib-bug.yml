@@ -1,0 +1,34 @@
+name: Lib violation or bug report
+description: API violation report.
+labels: [bug, lib]
+body:
+  - type: dropdown
+    id: oses
+    attributes:
+      label: What os are you seeing the violation on?
+      multiple: true
+      options:
+        - Windows
+        - MacOS
+        - Linux
+  - type: dropdown
+    id: loaders
+    attributes:
+      label: What the loader are you seeing the violation on?
+      multiple: true
+      options:
+        - Forge
+        - Fabric
+        - Quilt
+        - NeoForge
+  - type: textarea
+    attributes:
+      label: Describe the violation.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: What version of the toadlib are you using?
+    validations:
+      required: true
