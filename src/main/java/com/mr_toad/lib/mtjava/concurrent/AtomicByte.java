@@ -17,19 +17,10 @@ import java.nio.ByteOrder;
 public final class AtomicByte extends Number implements Serializable {
 
     @Serial private static final long serialVersionUID = 6214790243416807050L;
-    private static final Unsafe UNSAFE = Unsafe.getUnsafe();
-
-    private static final long VALUE;
+    private static final Unsafe UNSAFE = UnsafeAccess.UNSAFE;
+    private static final long VALUE = UnsafeAccess.fieldOffset(AtomicByte.class, "value");
+    
     private volatile byte value;
-
-    static {
-        try {
-            VALUE = UNSAFE.objectFieldOffset(AtomicByte.class.getDeclaredField("value"));
-        } catch (NoSuchFieldException | SecurityException e) {
-            ToadLib.LOGGER.error("Cannot get object field offset of AtomicByte");
-            throw new RuntimeException(e);
-        }
-    }
 
     public AtomicByte(byte initial) {
         this.value = initial;
