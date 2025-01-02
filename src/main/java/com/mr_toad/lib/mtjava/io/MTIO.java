@@ -21,8 +21,8 @@ public class MTIO {
     public static final ExecutorService IO = Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("MTIO-Worker-%s").setUncaughtExceptionHandler(MTIO::uncaught).build());
 
     public static void shutdownIO() {
-        Util.shutdownExecutors();
-        shutdownService(IO);
+        Concurrents.shutdownService(Util.ioPool());
+        Concurrents.shutdownService(IO);
     }
 
     public static ImmutableList<String> readLines(File file) throws IOException {
