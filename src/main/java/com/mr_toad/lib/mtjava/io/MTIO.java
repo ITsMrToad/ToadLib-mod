@@ -1,54 +1,47 @@
 package com.mr_toad.lib.mtjava.io;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.mr_toad.lib.core.ToadLib;
-import net.minecraft.ReportedException;
+import com.mr_toad.lib.mtjava.concurrent.Concurrents;
 import net.minecraft.Util;
-import net.minecraft.server.Bootstrap;
 
-import java.util.concurrent.CompletionException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MTIO {
 
-    public static final AtomicInteger WORKERS = new AtomicInteger(1);
-    public static final ExecutorService IO = Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("MTIO-Worker-" + WORKERS.getAndIncrement()).setUncaughtExceptionHandler(MTIO::uncaught).build());
+    public static final ExecutorService IO = Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("MTIO-Worker-%s").setUncaughtExceptionHandler(MTIO::uncaught).build());
 
-    public static void shutdownUncommon() {
+    public static void shutdownIO() {
         Util.shutdownExecutors();
         shutdownService(IO);
     }
 
-    public static void uncaught(Thread pool, Throwable tr) {
-        Util.pauseInIde(tr);
-        if (tr instanceof CompletionException) {
-            tr = tr.getCause();
-        }
-
-        if (tr instanceof ReportedException) {
-            Bootstrap.realStdoutPrintln(((ReportedException)tr).getReport().getFriendlyReport());
-            System.exit(-1);
-        }
-
-        ToadLib.LOGGER.error("Caught exception in thread '{}'", pool, tr);
+    public static ImmutableList<String> readLines(File file) throws IOException {
+        return readLines(file.toPath());
     }
 
-    public static void shutdownService(ExecutorService service) {
-        service.shutdown();
-
-        boolean flag;
-        try {
-            flag = service.awaitTermination(3L, TimeUnit.SECONDS);
-        } catch (InterruptedException interruptedexception) {
-            flag = false;
-        }
-
-        if (!flag) {
-            service.shutdownNow();
+    public static ImmutableList<String> readLines(Path path) throws IOException {
+        try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+            return readLines(reader);
         }
     }
 
+    public static ImmutableList<String> readLines(InputStream stream) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
+            return readLines(reader);
+        }
+    }
+
+    public static ImmutableList<String> readLines(BufferedReader reader) {
+        return ImmutableList.copyOf(reader.lines().iterator());
+    }
 }
