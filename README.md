@@ -13,9 +13,11 @@ This Lib required for ALL my mods
 ### <u>Announcements</u>📢 :
 
 * EndlessJourney [not finished] (8%)
-* H+ [not finished] (99%)
-* MovieMaker [not finished] (12%)
-* HN [not finished] (0%)
+* VillageUpgrade [not finished] (50%)
+* Palladium [Finished] 💠
+* H+ [Finished] 💠
+* EBE(EnlightenedBlockEntities) [Finished]💠
+* GPUTape [Finished] 💠
 
 
 # Quick Guide For Developers 📖
