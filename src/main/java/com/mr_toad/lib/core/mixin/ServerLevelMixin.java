@@ -1,6 +1,7 @@
 package com.mr_toad.lib.core.mixin;
 
 import com.mr_toad.lib.event.ToadEventFactory;
+import com.mr_toad.lib.api.integration.BuiltInIntegrations;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
@@ -27,7 +28,9 @@ public abstract class ServerLevelMixin extends Level implements WorldGenLevel {
 
     @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/LevelChunk;getPos()Lnet/minecraft/world/level/ChunkPos;", shift = At.Shift.BEFORE))
     public void eventChunkStart(LevelChunk chunk, int i0, CallbackInfo ci) {
-        ToadEventFactory.onChunkTickStart(this.getLevel(), chunk);
+        if (BuiltInIntegrations.isSparkClosed()) {
+            ToadEventFactory.onChunkTickStart(this.getLevel(), chunk);
+        }
     }
 
     @Inject(method = "tickChunk", at = @At("TAIL"))
