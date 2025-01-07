@@ -4,17 +4,17 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class PolledArrayDeque<E> extends ArrayDeque<E> {
+public class SimpleArrayDeque<E> extends ArrayDeque<E> {
 
-    public PolledArrayDeque() {
+    public SimpleArrayDeque() {
         super();
     }
 
-    public PolledArrayDeque(int numElements) {
+    public SimpleArrayDeque(int numElements) {
         super(numElements);
     }
 
-    public PolledArrayDeque(Collection<? extends E> c) {
+    public SimpleArrayDeque(Collection<? extends E> c) {
         super(c);
     }
 
