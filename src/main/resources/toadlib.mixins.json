@@ -7,9 +7,18 @@
   "mixins": [
     "EntityMixin",
     "NameTagItemMixin",
-    "ServerLevelMixin"
+    "ServerLevelMixin",
+    "access.FireBlockAccessor",
+    "access.ParrotAccessor",
+    "access.StructureTemplatePoolAccessor",
+    "spark.HealthModuleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "access.AbstractSelectionListAccessor",
+    "access.EditBoxAccessor",
+    "access.TooltipAccessor"
+  ]
 }
