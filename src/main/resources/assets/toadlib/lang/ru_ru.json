@@ -1,0 +1,110 @@
+{
+  "toadlib.search": "Поиск...",
+
+  "toadlib.nar.open": "Открыть файл или папку",
+  "toadlib.nar.interp.focused": "Нажмите enter чтобы выбрать",
+  "toadlib.nar.interp.hovered": "Нажмите ЛКМ чтобы выбрать",
+
+  "toadconfig.title": "Настройки ToadLib-модов",
+  "toadconfig.search": "Поиск в '%s'",
+  "toadconfig.refresh_tooltip": "Если конфиг вызывает ошибки, то попробуйте перезагрузить ресурсы используя эту кнопку",
+  "toadconfig.reset": "Сбросить по умолчанию",
+  "toadconfig.open_folder": "Открыть папку конфигов",
+  "toadconfig.open_file": "Открыть файл конфига '%s'",
+
+  "toadlib.interpolation.const": "Константа",
+  "toadlib.interpolation.linear": "Линейная",
+  "toadlib.interpolation.inv_linear": "Инвертированная линейная",
+  "toadlib.interpolation.quad_in": "Квадратичная",
+  "toadlib.interpolation.quad_out": "Квадратичная “out”",
+  "toadlib.interpolation.quad_inout": "Квадратичная “in out”",
+  "toadlib.interpolation.cubic_in": "Кубическая",
+  "toadlib.interpolation.cubic_out": "Кубическая “out”",
+  "toadlib.interpolation.cubic_inout": "Кубическая “in out”",
+  "toadlib.interpolation.quart_in": "Квартичная",
+  "toadlib.interpolation.quart_out": "Квартичная “out”",
+  "toadlib.interpolation.quart_inout": "Квартичная “in out”",
+  "toadlib.interpolation.quint_in": "Квинтичная",
+  "toadlib.interpolation.quint_out": "Квинтичная “out”",
+  "toadlib.interpolation.quint_inout": "Квинтичная “in out”",
+  "toadlib.interpolation.exp_in": "Экспотенциальнная",
+  "toadlib.interpolation.exp_out": "Экспотенциальнная “out”",
+  "toadlib.interpolation.exp_inout": "Экспотенциальнная “in out”",
+  "toadlib.interpolation.back_in": "Тяжёлая",
+  "toadlib.interpolation.back_out": "Тяжёлая “out”",
+  "toadlib.interpolation.back_inout": "Тяжёлая “in out”",
+  "toadlib.interpolation.elastic_in": "Эластичная",
+  "toadlib.interpolation.elastic_out": "Эластичная “out”",
+  "toadlib.interpolation.elastic_inout": "Эластичная “in out”",
+  "toadlib.interpolation.bounce_in": "Прыгающая",
+  "toadlib.interpolation.bounce_out": "Прыгающая “out”",
+  "toadlib.interpolation.bounce_inout": "Прыгающая “in out”",
+  "toadlib.interpolation.sine_in": "Синусоидная",
+  "toadlib.interpolation.sine_out": "Синусоидная “out”",
+  "toadlib.interpolation.sine_inout": "Синусоидная “in out”",
+  "toadlib.interpolation.circle_in": "Круговая",
+  "toadlib.interpolation.circle_out": "Круговая “out”",
+  "toadlib.interpolation.circle_inout": "Круговая “in out”",
+  "toadlib.interpolation.catmullrom": "Catmull-rom",
+  "toadlib.interpolation.hermite": "Кубическая Эрмита",
+  "toadlib.interpolation.cubic": "Кубический сплайн",
+
+  "toadlib.interpolation.const.tooltip": "Ввод : B",
+  "toadlib.interpolation.linear.tooltip": "Линейная : Lerp(X)",
+  "toadlib.interpolation.inv_linear.tooltip": "Инвертированная линейная : InvLerp(X)",
+
+  "toadlib.interpolation.quad_in.tooltip": "Ускоряется к концу : X²",
+  "toadlib.interpolation.quad_out.tooltip": "Замедляется к концу : X * (X - 2)",
+  "toadlib.interpolation.quad_inout.tooltip": "Объединяет “in” и ”out” : X < 0.5 ? QuadIn : QuadOut",
+
+  "toadlib.interpolation.cubic_in.tooltip": "Похож на квадратичную “in”, но плавнее : X³",
+  "toadlib.interpolation.cubic_out.tooltip": "Похож на квадратичную “out”, но плавнее : (X - 1)³ + 1",
+  "toadlib.interpolation.cubic_inout.tooltip": "Объединяет “in” и ”out” : X < 0.5 ? CubicIn : CubicOut",
+
+  "toadlib.interpolation.quart_in.tooltip": "Похож на кубическую “in”, но плавнее : X⁴",
+  "toadlib.interpolation.quart_out.tooltip": "Похож на кубическую “out”, но плавнее : (X - 1)⁴ + 1",
+  "toadlib.interpolation.quart_inout.tooltip": "Объединяет “in” и ”out” : X < 0.5 ? QuartIn : QuartOut",
+
+  "toadlib.interpolation.quint_in.tooltip": "Похож на квартичную “in”, но плавнее : X⁵",
+  "toadlib.interpolation.quint_out.tooltip": "Похож на квартичную “out”, но плавнее : out(X⁵)",
+  "toadlib.interpolation.quint_inout.tooltip": "Объединяет “in” и ”out” : X < 0.5 ? QuintIn : QuintOut",
+
+  "toadlib.interpolation.exp_in.tooltip": "Постепенное и резкое ускорение к концу : E¹⁰ˣxˣ⁻¹⁰",
+  "toadlib.interpolation.exp_out.tooltip": "Постепенное и резкое замедление к концу : E⁻¹⁰ˣx",
+  "toadlib.interpolation.exp_inout.tooltip": "Объединяет “in” и ”out” : X < 0.5 ? ExpIn : ExpOut",
+
+  "toadlib.interpolation.back_in.tooltip": "Смещается ниже начала затем ускоряется к концу : E * X * X * X - (E / 2) * X * X",
+  "toadlib.interpolation.back_out.tooltip": "Ускоряется к концу, затем “заносит” значение : 1 + E * (X - 1)³ + (E / 2) * (X - 1)²",
+  "toadlib.interpolation.back_inout.tooltip": "Объединяет “in” и ”out” : X < 0.5 ? BackIn : BackOut",
+
+  "toadlib.interpolation.elastic_in.tooltip": "Ускоряется к концу применяя эффект “резины” : -2¹⁰ˣx * sin((X * 10 - 10.75) * 2π / 3)",
+  "toadlib.interpolation.elastic_out.tooltip": "Замедляется к концу применяя эффект “резины” : 2⁻¹⁰ˣx * sin((X * 10 - 0.75) * 2π / 3) + 1",
+  "toadlib.interpolation.elastic_inout.tooltip": "Объединяет “in” и ”out” : X < 0.5 ? ElasticIn : ElasticOut",
+
+  "toadlib.interpolation.bounce_in.tooltip": "Анимация “Попрыгунчика” : См. toadlib github",
+  "toadlib.interpolation.bounce_out.tooltip": "Анимация “Попрыгунчика с инвертированной гравитацией” : См. toadlib github",
+  "toadlib.interpolation.bounce_inout.tooltip": "Объединяет “in” и ”out”: X < 0.5 ? BounceIn : BounceOut",
+
+  "toadlib.interpolation.sine_in.tooltip": "Ускоряется к концу, менее резкая чем Квадратич./Кубич. и др. : 1 - 1 - cos((X * π) / 2)",
+  "toadlib.interpolation.sine_out.tooltip": "Замедляется к концу, менее резкая чем Квадратич./Кубич. и др. : sin((X * π) / 2)",
+  "toadlib.interpolation.sine_inout.tooltip": "Объединяет синусоидные : -0.5F * (cos(π * X) - 1)",
+
+  "toadlib.interpolation.circle_in.tooltip": "Похож на Кубическую “in”, но резче : 1 - √(1 - X²)",
+  "toadlib.interpolation.circle_out.tooltip": "Похож на Кубическую “out”, но резче : 1 - √((X - 1)²)",
+  "toadlib.interpolation.circle_inout.tooltip": "Объединяет Круговые “in” и ”out” : X < 0.5 ? CircleIn : CircleOut",
+
+  "toadlib.interpolation.catmullrom.tooltip": "Плавный центростремительный сплайн, хорош для анимаций : Cм. toadlib github",
+  "toadlib.interpolation.hermite.tooltip": "Более точная и гибкая чем кубический сплайн. Смещение и натяжение настраиваются : Cм. toadlib github",
+  "toadlib.interpolation.cubic.tooltip": "Объединяет кубические сегменты, является базой для кубичсекой эрмита и catmull-rom : Cм. toadlib github",
+
+  "toadlib.screen.interp.interpolations" : "Интерполяции",
+  "toadlib.screen.interp.info" : "Большинство формул для интерполяций были взяты с easings.net",
+  "toadlib.screen.interp.info1" : "E = 2.7182... π = 3.1415...",
+  "toadlib.screen.interp.info2" : "X = прогресс(0 - 1). Для доп. информации См. toadlib github.",
+
+  "toadlib.screen.hermite.tension" : "Натяжение",
+  "toadlib.screen.hermite.bias" : "Смещение",
+
+  "toadlib.config.interpolation_overview" : "Обзор интерполяций",
+  "toadlib.config.interpolation_overview.tooltip" : "Позволяет открыть экран бета-интерполяций(Нажмите 'I')."
+}
