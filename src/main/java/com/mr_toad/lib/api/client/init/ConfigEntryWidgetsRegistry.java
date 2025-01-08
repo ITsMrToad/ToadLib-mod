@@ -86,7 +86,7 @@ public class ConfigEntryWidgetsRegistry {
 
         registerMaker(ConfigEntryTypes.ENUM, Enum.class, (owner, nextX, nextY, entry) -> {
             if (entry instanceof CycledEntry cycledEntry) {
-                return CycleButton.builder(cycledEntry.getNaming()).withValues(cycledEntry.getValues()).withInitialValue(cycledEntry.get()).withTooltip(o -> Tooltip.create(entry.getDescription())).create(nextX, nextY, 120, 20, entry.getTitle(), (b, v) -> {
+                return CycleButton.builder(cycledEntry.getNaming()).withValues(cycledEntry.getValues()).withInitialValue(cycledEntry.get()).withTooltip(o -> Tooltip.create(entry.getDescription())).create(nextX, nextY, 220, 20, entry.getTitle(), (b, v) -> {
                     if (!cycledEntry.get().equals(v)) {
                         cycledEntry.setValue((Enum) v);
                     }
