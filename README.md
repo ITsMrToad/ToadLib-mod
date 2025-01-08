@@ -7,7 +7,11 @@ This Lib required for ALL my mods
 * Property utilities
 * BlockAndItem utilities
 * WorldGen utilities
-* Entity Abstractions 
+* Client utils
+* Entity Abstractions
+* Config
+* Interpolations
+* Java utils
 * And outer
 
 ### <u>Announcements</u>📢 :
@@ -25,7 +29,7 @@ This Lib required for ALL my mods
 How to do add my library to dependencies...
 
 ## 1. Add `maven.modrinth` to `repositories`
-```
+```groovy
 repositories {
     exclusiveContent {
         forRepository {
@@ -51,7 +55,7 @@ implementation fg.deobf("maven.modrinth:toadlib:<version>")
 * For example: version - 1.0.2 
 
 ## 3. Add ToadLib to `dependencies` in `mods.toml`
-```
+```toml
 [[dependencies.{yourModId}]]
 modId = "toadlib"
 mandatory = true
