@@ -70,7 +70,7 @@ side = "BOTH"
 * `build` your mod
 
 
-This is all. Enjoy your use
+Read more about the integration [!here](https://github.com/ITsMrToad/ToadLib-mod/wiki/Lib-integration)
 
 
 
