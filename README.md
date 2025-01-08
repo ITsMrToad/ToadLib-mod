@@ -47,7 +47,7 @@ repositories {
 ```
 
 ## 2. Add ToadLib<version> to `dependencies` in `build.gradle`
-```
+```groovy
 implementation fg.deobf("maven.modrinth:toadlib:<version>")
 ```
 
@@ -70,7 +70,7 @@ side = "BOTH"
 * `build` your mod
 
 
-Read more about the integration [!here](https://github.com/ITsMrToad/ToadLib-mod/wiki/Lib-integration)
+Read more about the integration [here](https://github.com/ITsMrToad/ToadLib-mod/wiki/Lib-integration)
 
 
 
