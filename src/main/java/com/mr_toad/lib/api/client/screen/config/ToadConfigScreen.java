@@ -53,7 +53,7 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
     protected void init() {
         this.widgetSelectionList = this.addRenderableWidget(new WidgetSelectionList(this.getMinecraft(), this.width, this.height, 30, this.height - 20, 35));
 
-        this.fillEntries(e -> true);
+        this.fillEntries(e -> true, true);
 
         Component component = Component.translatable("toadconfig.search", ToadConfigs.getConfigTitle(this.config)).withStyle(ChatFormatting.GRAY);
 
@@ -62,7 +62,7 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
         this.searchBox.setResponder(s -> {
             if (!Objects.equals(this.lastSearch, s)) {
                 this.tickable.clear();
-                this.fillEntries(e -> e.getTitle().getString().contains(s));
+                this.fillEntries(e -> e.getTitle().getString().contains(s), this.lastSearch.isEmpty());
                 this.lastSearch = s;
             }
         });
@@ -101,15 +101,15 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
     }
 
     @SuppressWarnings("rawtypes")
-    public void fillEntries(Predicate<ConfigEntry<?, ?>> filter) {
+    public void fillEntries(Predicate<ConfigEntry<?, ?>> filter, boolean drawPages) {
         int x = 15;
         this.widgetSelectionList.clearEntries();
         for (int i = 0; i < this.config.getEntries().stream().filter(filter).toList().size(); i++) {
             ConfigEntry<?, ?> entry = this.config.getEntries().get(i);
-            if (!entry.drawInScreen()) {
+            ConfigEntryType type = entry.getType();
+            if (!entry.drawInScreen() || type == ConfigEntryTypes.PAGE && !drawPages) {
                 return;
             }
-            ConfigEntryType type = entry.getType();
             Optional<ConfigEntryWidgetMaker<?, ?, ?>> optional = ConfigEntryWidgetsRegistry.getMakerOf(type);
             if (optional.isPresent()) {
                 ConfigEntryWidgetMaker maker = optional.get();
