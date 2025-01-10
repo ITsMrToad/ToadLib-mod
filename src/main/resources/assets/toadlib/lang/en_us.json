@@ -12,6 +12,20 @@
   "toadconfig.open_folder": "Open config folder.",
   "toadconfig.open_file": "Open '%s' config file.",
 
+  "toadconfig.performance_impact" : "Performance impact: ",
+  "toadconfig.performance_impact.low_increase" : "Low increase",
+  "toadconfig.performance_impact.medium_increase" : "Medium increase",
+  "toadconfig.performance_impact.high_increase" : "High increase",
+  "toadconfig.performance_impact.low_decrease" : "Low decrease",
+  "toadconfig.performance_impact.medium_decrease" : "Medium decrease",
+  "toadconfig.performance_impact.high_decrease" : "High decrease",
+  "toadconfig.performance_impact.extreme_decrease" : "Extreme decrease",
+
+  "toadconfig.warning" : "Requires ",
+  "toadconfig.warning.world" : "world reload",
+  "toadconfig.warning.resource" : "resource reload",
+  "toadconfig.warning.game" : "game reload",
+
   "toadlib.interpolation.const": "Constant",
   "toadlib.interpolation.linear": "Linear",
   "toadlib.interpolation.inv_linear": "Inverted linear",
@@ -110,4 +124,6 @@
 
   "toadlib.config.interpolation_overview" : "Overview of interpolations",
   "toadlib.config.interpolation_overview.tooltip" : "Allows you to open the beta screen for selecting interpolations (Press 'I' key)."
+  "toadlib.config.tooltip_line_length" : "Tooltip line length",
+  "toadlib.config.tooltip_line_length.tooltip" : "Maximum length of the tooltip line. 170 is the vanilla value. Setting larger values may lead to errors related to tooltips."
 }
