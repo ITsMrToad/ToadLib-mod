@@ -1,6 +1,7 @@
 package com.mr_toad.lib.api.client.init;
 
 import com.mr_toad.lib.api.client.screen.config.widget.ConfigEntryWidgetMaker;
+import com.mr_toad.lib.api.client.screen.config.widget.ConfigPageWidget;
 import com.mr_toad.lib.api.client.screen.config.widget.UnexpectedEntry;
 import com.mr_toad.lib.api.client.screen.ex.widget.ExCheckbox;
 import com.mr_toad.lib.api.client.screen.ex.widget.ExEditBox;
@@ -199,10 +200,14 @@ public class ConfigEntryWidgetsRegistry {
             }
         });
 
-
-
         registerMaker(ConfigEntryTypes.DEGREE, float.class, (owner, nextX, nextY, entry) -> {
             ExSlider slider = new ExSlider(nextX, nextY, 220, 19, entry.getTitle(), Component.literal("°"), -180.0F, 180, entry.get(), 1F, num -> entry.setValue((float) num.getValue()));
+            slider.setTooltip(Tooltip.create(entry.getDescription()));
+            return slider;
+        });
+
+        registerMaker(ConfigEntryTypes.PERCENT, double.class, (owner, nextX, nextY, entry) -> {
+            ExSlider slider = new ExSlider(nextX, nextY, 220, 19, entry.getTitle(), Component.literal("%"), 0.0D, 1.0D, entry.get(), 0.01D, num -> entry.setValue(num.getValue()));
             slider.setTooltip(Tooltip.create(entry.getDescription()));
             return slider;
         });
@@ -240,6 +245,8 @@ public class ConfigEntryWidgetsRegistry {
                 return new UnexpectedEntry(nextX, nextY);
             }
         });
+
+       registerMaker(ConfigEntryTypes.PAGE, Component.class, (owner, nextX, nextY, entry) -> new ConfigPageWidget(owner.widgetSelectionList.getWidth() / 2, nextY, entry.get()));
     }
 
     private static void initTickers() {
