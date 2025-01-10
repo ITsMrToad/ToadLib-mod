@@ -12,6 +12,20 @@
   "toadconfig.open_folder": "Открыть папку конфигов",
   "toadconfig.open_file": "Открыть файл конфига '%s'",
 
+  "toadconfig.performance_impact" : "Влияние на производительность: ",
+  "toadconfig.performance_impact.low_increase" : "Незначительное увеличение",
+  "toadconfig.performance_impact.medium_increase" : "Среднее увелечение",
+  "toadconfig.performance_impact.high_increase" : "Высокое увелечение",
+  "toadconfig.performance_impact.low_decrease" : "Незначительное снижение",
+  "toadconfig.performance_impact.medium_decrease" : "Среднее снижение",
+  "toadconfig.performance_impact.high_decrease" : "Высокое снижение",
+  "toadconfig.performance_impact.extreme_decrease" : "Экстримальное снижение",
+
+  "toadconfig.warning" : "Требует ",
+  "toadconfig.warning.world" : "перезагрузку мира",
+  "toadconfig.warning.resource" : "перезагрузку ресурсов",
+  "toadconfig.warning.game" : "перезапуск",
+
   "toadlib.interpolation.const": "Константа",
   "toadlib.interpolation.linear": "Линейная",
   "toadlib.interpolation.inv_linear": "Инвертированная линейная",
@@ -107,4 +121,6 @@
 
   "toadlib.config.interpolation_overview" : "Обзор интерполяций",
   "toadlib.config.interpolation_overview.tooltip" : "Позволяет открыть экран бета-интерполяций(Нажмите 'I')."
+  "toadlib.config.tooltip_line_length" : "Длина линии всплывашки",
+  "toadlib.config.tooltip_line_length.tooltip" : "Максимальная длина всплывающей подсказки. 170 - ванильное значение. Установка больших значений может превести к ошибка отображения всплывашки."
 }
