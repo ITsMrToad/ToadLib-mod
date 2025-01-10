@@ -86,7 +86,7 @@ public class ToadLib {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = MODID)
+    @Mod.EventBusSubscriber(modid = MODID, value = Dist.DEDICATED_SERVER)
     public static class Server {
         @SubscribeEvent
         public static void onLevelLoad(LevelEvent.Load event) {
@@ -121,7 +121,7 @@ public class ToadLib {
 
         @SubscribeEvent
         public static void onKey(InputEvent.Key event) {
-            if (event.getKey() == InputConstants.KEY_I) {
+            if (Minecraft.getInstance().screen == null && event.getKey() == InputConstants.KEY_I) {
                 if (CFG.interpOverview.value) {
                     Minecraft.getInstance().setScreen(new InterpolationSelectionScreen<>(InterpolationSelectionScreen.ALL_REGISTERED_INTERPOLATIONS, null) {
                         @Override
