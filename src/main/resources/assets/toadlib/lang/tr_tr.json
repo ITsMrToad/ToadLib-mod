@@ -3,7 +3,7 @@
 
   "toadlib.nar.open": "Dosya veya klasör aç.",
   "toadlib.nar.interp.focused": "Seçmek için Enter'a basın.",
-  "toadlib.nar.interp.hovered": "Seçmek için Sol Mouse Tuşuna tıklayın.",
+  "toadlib.nar.interp.hovered": "Seçmek için Sol tıklayın.",
 
   "toadconfig.title": "ToadLib Modlarının Ayarları",
   "toadconfig.search": "'%s' içinde ara",
@@ -66,64 +66,64 @@
   "toadlib.interpolation.hermite": "Hermite",
   "toadlib.interpolation.cubic": "Kübik spline",
 
-  "toadlib.interpolation.const.tooltip": "Input : B",
-  "toadlib.interpolation.linear.tooltip": "Linear : Lerp(X)",
-  "toadlib.interpolation.inv_linear.tooltip": "Inverted linear : InvLerp(X)",
+  "toadlib.interpolation.const.tooltip": "Girdi : B",
+  "toadlib.interpolation.linear.tooltip": "Doğrusal : Lerp(X)",
+  "toadlib.interpolation.inv_linear.tooltip": "Ters doğrusal : InvLerp(X)",
 
-  "toadlib.interpolation.quad_in.tooltip": "Acceleration towards the end : X²",
-  "toadlib.interpolation.quad_out.tooltip": "Slowing down towards the end : X * (X - 2)",
-  "toadlib.interpolation.quad_inout.tooltip": "Combines QuadIn & QuadOut : X < 0.5 ? QuadIn : QuadOut",
+  "toadlib.interpolation.quad_in.tooltip": "Sonlara doğru hızlanma : X²",
+  "toadlib.interpolation.quad_out.tooltip": "Sonlara doğru yavaşlama : X * (X - 2)",
+  "toadlib.interpolation.quad_inout.tooltip": "QuadIn ve QuadOut'u birleştirir : X < 0.5 ? QuadIn : QuadOut",
 
-  "toadlib.interpolation.cubic_in.tooltip": "Look like Quad, but slower at the beginning and faster at the end : X³",
-  "toadlib.interpolation.cubic_out.tooltip": "Look like Quad, but faster at the beginning and slower at the end : (X - 1)³ + 1",
-  "toadlib.interpolation.cubic_inout.tooltip": "Combines CubicIn & CubicOut : X < 0.5 ? CubicIn : CubicOut",
+  "toadlib.interpolation.cubic_in.tooltip": "Quad'a benzer, ancak başlangıçta daha yavaş ve sonda daha hızlı : X³",
+  "toadlib.interpolation.cubic_out.tooltip": "Quad'a benzer, ancak başta daha hızlı ve sonda daha yavaş : (X - 1)³ + 1",
+  "toadlib.interpolation.cubic_inout.tooltip": "CubicIn ve CubicOut'u birleştirir : X < 0.5 ? CubicIn : CubicOut",
 
-  "toadlib.interpolation.quart_in.tooltip": "Look like Cubic, but slower at the beginning and faster at the end : X⁴",
-  "toadlib.interpolation.quart_out.tooltip": "Look like Cubic, but faster at the beginning and slower at the end : (X - 1)⁴ + 1",
-  "toadlib.interpolation.quart_inout.tooltip": "Combines QuartIn & QuartOut : X < 0.5 ? QuartIn : QuartOut",
+  "toadlib.interpolation.quart_in.tooltip": "Cubic'e benzer, ancak başlangıçta daha yavaş ve sonda daha hızlı : X⁴",
+  "toadlib.interpolation.quart_out.tooltip": "Cubic'e benzer, ancak başlangıçta daha hızlı, sonda daha yavaş : (X - 1)⁴ + 1",
+  "toadlib.interpolation.quart_inout.tooltip": "QuartIn ve QuartOut'u birleştirir : X < 0.5 ? QuartIn : QuartOut",
 
-  "toadlib.interpolation.quint_in.tooltip": "Look like Quart, but slower at the beginning and faster at the end : X⁵",
-  "toadlib.interpolation.quint_out.tooltip": "Look like Quart, but faster at the beginning and slower at the end : (X - 1)⁵ + 1",
-  "toadlib.interpolation.quint_inout.tooltip": "Combines QuintIn & QuintOut : X < 0.5 ? QuintIn : QuintOut",
+  "toadlib.interpolation.quint_in.tooltip": "Quart'a benzer, ancak başlangıçta daha yavaş, sonda daha hızlı : X⁵",
+  "toadlib.interpolation.quint_out.tooltip": "Quart'a benzer, ancak başlangıçta daha hızlı, sonda daha yavaş : (X - 1)⁵ + 1",
+  "toadlib.interpolation.quint_inout.tooltip": "QuintIn ve QuintOut'u birleştirir : X < 0.5 ? QuintIn : QuintOut",
 
-  "toadlib.interpolation.exp_in.tooltip": "A sharp acceleration towards the end : E¹⁰ˣxˣ⁻¹⁰",
-  "toadlib.interpolation.exp_out.tooltip": "A sharp slowdown towards the end : E⁻¹⁰ˣx",
-  "toadlib.interpolation.exp_inout.tooltip": "Combines ExpIn & ExpOut : X < 0.5 ? ExpIn : ExpOut",
+  "toadlib.interpolation.exp_in.tooltip": "Sonlara doğru ani hızlanma : E¹⁰ˣxˣ⁻¹⁰",
+  "toadlib.interpolation.exp_out.tooltip": "Sonlara doğru ani yavaşlama : E⁻¹⁰ˣx",
+  "toadlib.interpolation.exp_inout.tooltip": "ExpIn ve ExpOut' birleştirir : X < 0.5 ? ExpIn : ExpOut",
 
-  "toadlib.interpolation.back_in.tooltip": "Shifts below the beginning, then accelerates as it approaches the end : E * X * X * X - (E / 2) * X * X",
-  "toadlib.interpolation.back_out.tooltip": "Accelerates towards the end, then “skids” in value : 1 + E * (X - 1)³ + (E / 2) * (X - 1)²",
-  "toadlib.interpolation.back_inout.tooltip": "Combines BackIn & BackOut : X < 0.5 ? BackIn : BackOut",
+  "toadlib.interpolation.back_in.tooltip": "Başlangıç noktasının altına kayar, sonra sona doğru hızlanır : E * X * X * X - (E / 2) * X * X",
+  "toadlib.interpolation.back_out.tooltip": "Sona doğru hızlanır, ardından “kayma” efekti verir : 1 + E * (X - 1)³ + (E / 2) * (X - 1)²",
+  "toadlib.interpolation.back_inout.tooltip": "BackIn ve BackOut'u birleştirir : X < 0.5 ? BackIn : BackOut",
 
-  "toadlib.interpolation.elastic_in.tooltip": "Accelerates towards the end while applying a rubber band effect : -2¹⁰ˣx * sin((X * 10 - 10.75) * 2π / 3)",
-  "toadlib.interpolation.elastic_out.tooltip": "Slows down towards the end while applying a rubber band effect : 2⁻¹⁰ˣx * sin((X * 10 - 0.75) * 2π / 3) + 1",
-  "toadlib.interpolation.elastic_inout.tooltip": "Combines ElasticIn & ElasticOut : X < 0.5 ? ElasticIn : ElasticOut",
+  "toadlib.interpolation.elastic_in.tooltip": "Sonlara doğru hızlanırken lastik bant etkisi uygular : -2¹⁰ˣx * sin((X * 10 - 10.75) * 2π / 3)",
+  "toadlib.interpolation.elastic_out.tooltip": "Sonlara doğru yavaşlarken lastik bant etkisi uygular : 2⁻¹⁰ˣx * sin((X * 10 - 0.75) * 2π / 3) + 1",
+  "toadlib.interpolation.elastic_inout.tooltip": "ElasticIn ve ElasticOut'u birleştirir : X < 0.5 ? ElasticIn : ElasticOut",
 
-  "toadlib.interpolation.bounce_in.tooltip": "“Jumper” animation : See toadlib github",
-  "toadlib.interpolation.bounce_out.tooltip": "“Inverted gravity jumper” animation : See toadlib github",
-  "toadlib.interpolation.bounce_inout.tooltip": "Combine BounceIn & BounceOut : X < 0.5 ? BounceIn : BounceOut",
+  "toadlib.interpolation.bounce_in.tooltip": "“Zıplama” animasyonu : ToadLib GitHub’a bakın",
+  "toadlib.interpolation.bounce_out.tooltip": "Ters yerçekimi zıplaması” animasyonu : ToadLib GitHub’a bakın",
+  "toadlib.interpolation.bounce_inout.tooltip": "BounceIn ve BounceOut'u birleştirir : X < 0.5 ? BounceIn : BounceOut",
 
-  "toadlib.interpolation.sine_in.tooltip": "Accelerates towards the end, less sharpness than Quad/Cubic/Quart/Quint : 1 - 1 - cos((X * π) / 2)",
-  "toadlib.interpolation.sine_out.tooltip": "Slows down towards the end, less sharpness than Quad/Cubic/Quart/Quint : sin((X * π) / 2)",
-  "toadlib.interpolation.sine_inout.tooltip": "Combines SineIn & SineOut : -0.5F * (cos(π * X) - 1)",
+  "toadlib.interpolation.sine_in.tooltip": "Sonlara doğru hızlanır, Quad/Cubic/Quart/Quint'e göre daha az keskin : 1 - 1 - cos((X * π) / 2)",
+  "toadlib.interpolation.sine_out.tooltip": "Sonlara doğru yavaşlar, Quad/Cubic/Quart/Quint'e göre daha az keskin : sin((X * π) / 2)",
+  "toadlib.interpolation.sine_inout.tooltip": "SineIn ve SineOut'u birleştirir : -0.5F * (cos(π * X) - 1)",
 
-  "toadlib.interpolation.circle_in.tooltip": "Look like CubicIn, but sharper : 1 - √(1 - X²)",
-  "toadlib.interpolation.circle_out.tooltip": "Look like CubicOut, but sharper : 1 - √((X - 1)²)",
-  "toadlib.interpolation.circle_inout.tooltip": "Combines CircleIn & CircleOut : X < 0.5 ? CircleIn : CircleOut",
+  "toadlib.interpolation.circle_in.tooltip": "CubicIn'e benzer, ancak daha keskin : 1 - √(1 - X²)",
+  "toadlib.interpolation.circle_out.tooltip": "CubicOut'a benzer, ancak daha keskin : 1 - √((X - 1)²)",
+  "toadlib.interpolation.circle_inout.tooltip": "CircleIn ve CircleOut'u birleştirir : X < 0.5 ? CircleIn : CircleOut",
 
-  "toadlib.interpolation.catmullrom.tooltip": "Smooth centripetal spline, good for animations : See toadlib github",
-  "toadlib.interpolation.hermite.tooltip": "More flexible and precise than Cubic spline. bias and tension can be adjusted(RMB on widget). : See toadlib github",
-  "toadlib.interpolation.cubic.tooltip": "Consists of CubicIn segments, the basis for hermite and catmull-rom : See toadlib github",
+  "toadlib.interpolation.catmullrom.tooltip": "Animasyonlar için uygun, düzgün bir merkezcil eğri: Toadlib github'a bakın",
+  "toadlib.interpolation.hermite.tooltip": "Cubic spline'dan daha esnek ve hassas. Önyargı ve gerilim ayarlanabilir (Widget üzerinde sağ tıklayın). : Toadlib github'a bakın",
+  "toadlib.interpolation.cubic.tooltip": "CubicIn segmentlerinden oluşur, Hermite ve Catmull-rom'un temelini oluşturur : Toadlib github'a bakın",
 
-  "toadlib.screen.interp.interpolations" : "Interpolations",
-  "toadlib.screen.interp.info" : "Most of the formulas taken from easings.net.",
+  "toadlib.screen.interp.interpolations" : "İnterpolasyonlar",
+  "toadlib.screen.interp.info" : "Formüllerin çoğu easings.net'ten alınmıştır",
   "toadlib.screen.interp.info1" : "E = 2.7182... π = 3.1415...",
-  "toadlib.screen.interp.info2" : "X = progress(0 - 1). For additional info see toadlib github",
+  "toadlib.screen.interp.info2" : "X = ilerleme (0 - 1). Daha fazla bilgi için toadlib github'a bakın",
 
-  "toadlib.screen.hermite.tension" : "Tension",
-  "toadlib.screen.hermite.bias" : "Bias",
+  "toadlib.screen.hermite.tension" : "Gerginlik",
+  "toadlib.screen.hermite.bias" : "Önyargı",
 
-  "toadlib.config.interpolation_overview" : "Interpolasyonların Genel Görünümü",
-  "toadlib.config.interpolation_overview.tooltip" : "Interpolasyon seçmek için beta ekranını açmanızı sağlar (Beta, 'I' tuşuna basın)."
+  "toadlib.config.interpolation_overview" : "İnterpolasyonların Genel Görünümü",
+  "toadlib.config.interpolation_overview.tooltip" : "İnterpolasyon seçmek için beta ekranını açmanızı sağlar (Beta, 'İ' tuşuna basın)."
   "toadlib.config.tooltip_line_length" : "Alet ipucu satır uzunluğu",
   "toadlib.config.tooltip_line_length.tooltip" : "Alet ipucu satırının maksimum uzunluğu. Vanilla değeri 170'tir. Daha büyük değerler alet ipuçlarıyla ilgili hatalara neden olabilir."
 }
