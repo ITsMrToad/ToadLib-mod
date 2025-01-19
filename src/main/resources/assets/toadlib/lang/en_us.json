@@ -124,6 +124,10 @@
 
   "toadlib.config.interpolation_overview" : "Overview of interpolations",
   "toadlib.config.interpolation_overview.tooltip" : "Allows you to open the beta screen for selecting interpolations (Press 'I' key)."
+  "toadlib.config.showCfgButton" : "Show configuration button",
+  "toadlib.config.showCfgButton.tooltip" : "Uncheck this box if you want the ToadLib mods settings button to stop appearing on screens.",
+  "toadlib.config.showCfgButton.tooltip_2" : " It will be possible to enable it only through the config file!",
+  "toadlib.config.showCfgButton.deprecation" : "Catalogue is installed, customization makes no sense.",
   "toadlib.config.tooltip_line_length" : "Tooltip line length",
   "toadlib.config.tooltip_line_length.tooltip" : "Maximum length of the tooltip line. 170 is the vanilla value. Setting larger values may lead to errors related to tooltips."
 }
