@@ -10,6 +10,7 @@ import com.mr_toad.lib.api.client.screen.interpolation.InterpolationSelectionScr
 import com.mr_toad.lib.api.client.utils.ToadClientUtils;
 import com.mr_toad.lib.api.config.ToadConfigs;
 import com.mr_toad.lib.api.entity.immune.EffectImmuneStorage;
+import com.mr_toad.lib.api.integration.BuiltInIntegrations;
 import com.mr_toad.lib.core.config.ToadLibConfig;
 import com.mr_toad.lib.mtjava.math.interpolation.Interpolation;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -114,8 +115,10 @@ public class ToadLib {
     public static class Client {
         @SubscribeEvent
         public static void addConfigButtons(ScreenEvent.Init event) {
-            if (event.getScreen() instanceof TitleScreen || event.getScreen() instanceof PauseScreen) {
-                event.addListener(ToadClientUtils.createConfigButton(event.getScreen().width / 2 + 104, event.getScreen().height / 4 + 96, event.getScreen()));
+            if (CFG.showConfigButton.get() && !BuiltInIntegrations.CATALOGUE.isLoaded()) {
+                if (event.getScreen() instanceof TitleScreen || event.getScreen() instanceof PauseScreen) {
+                    event.addListener(ToadClientUtils.createConfigButton(event.getScreen().width / 2 + 104, event.getScreen().height / 4 + 96, event.getScreen()));
+                }
             }
         }
 
