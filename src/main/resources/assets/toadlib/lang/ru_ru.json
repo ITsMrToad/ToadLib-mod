@@ -121,6 +121,10 @@
 
   "toadlib.config.interpolation_overview" : "Обзор интерполяций",
   "toadlib.config.interpolation_overview.tooltip" : "Позволяет открыть экран бета-интерполяций(Нажмите 'I')."
+  "toadlib.config.showCfgButton" : "Показывать кнопку конфигурции",
+  "toadlib.config.showCfgButton.tooltip" : "Снимите галочку если хотите чтобы кнопка 'Настройки ToadLib-модов' не отображалась.",
+  "toadlib.config.showCfgButton.tooltip_2" : " Включить ее обратно возможно только через конфиг-файл!",
+  "toadlib.config.showCfgButton.deprecation" : "Catalogue установлен, настройка не имеет смысла.",
   "toadlib.config.tooltip_line_length" : "Длина линии всплывашки",
   "toadlib.config.tooltip_line_length.tooltip" : "Максимальная длина всплывающей подсказки. 170 - ванильное значение. Установка больших значений может превести к ошибка отображения всплывашки."
 }
