@@ -13,6 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class ToadLibConfig extends ToadConfig {
 
     public final BoolEntry interpOverview = this.register(new BoolEntry("interp_overview", false).addTitle(Component.translatable("toadlib.config.interpolation_overview")).addDescription(Component.translatable("toadlib.config.interpolation_overview.tooltip")));
+    public final BoolEntry showConfigButton = this.register(new BoolEntry("showCfgButton", true).addTitle(Component.translatable("toadlib.config.showCfgButton")).addDescription(Component.translatable("toadlib.config.showCfgButton.tooltip").append(Component.translatable("toadlib.config.showCfgButton.tooltip_2").withStyle(Style.EMPTY.withColor(-13108))))).addDeprecationRule(new DeprecationRule(BuiltInIntegrations.CATALOGUE::isLoaded).addTooltip(Component.translatable("toadlib.config.showCfgButton.deprecation")));
     public final ShortEntry tooltipLineLength = this.register(new ShortEntry("tooltipLineLength", (short) 280).range((short) 170, (short) 400).addTitle(Component.translatable("toadlib.config.tooltip_line_length")).addDescription(Component.translatable("toadlib.config.tooltip_line_length.tooltip"))).withWarning(HighlightWarning.GAME_RELOAD).withPerformanceImpact(PerformanceImpact.LOW_INCREASE);
 
     public ToadLibConfig() {
