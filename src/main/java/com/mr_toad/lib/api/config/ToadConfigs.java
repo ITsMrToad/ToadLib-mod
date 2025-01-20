@@ -18,10 +18,8 @@ public class ToadConfigs {
     public static<C extends ToadConfig> void create(String id, C config) {
         CONFIGS.put(id, config);
         ToadLib.LOGGER.info(ToadLib.CONFIG, "Registered new config: '{}' for '{}'", config.path, id);
-    }
-
-    public static void load() {
-        CONFIGS.values().forEach(ToadConfig::load);
+        BuiltInIntegrations.setupConfig(id, config);
+        config.load();
     }
 
     public static Optional<ToadConfig> byId(String id) {
