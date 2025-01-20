@@ -124,6 +124,10 @@
 
   "toadlib.config.interpolation_overview" : "Ara değerlemelerin genel görünümü",
   "toadlib.config.interpolation_overview.tooltip" : "İnterpolasyon seçmek için beta ekranını açmanızı sağlar (Beta, 'İ' tuşuna basın)."
+  "toadlib.config.showCfgButton" : "Konfigürasyon butonunu göster",
+  "toadlib.config.showCfgButton.tooltip" : "Eğer ToadLib modlarının ayarlar düğmesinin ekranlarda görünmesini istemiyorsanız, bu kutunun işaretini kaldırın.",
+  "toadlib.config.showCfgButton.tooltip_2" : " Bu düğmeyi yalnızca yapılandırma dosyasından tekrar etkinleştirebilirsiniz!",
+  "toadlib.config.showCfgButton.deprecation" : "Catalogue kurulu, özelleştirme mantıksız.",
   "toadlib.config.tooltip_line_length" : "Alet ipucu satır uzunluğu",
   "toadlib.config.tooltip_line_length.tooltip" : "Alet ipucu satırının maksimum uzunluğu. Vanilla değeri 170'tir. Daha büyük değerler alet ipuçlarıyla ilgili hatalara neden olabilir."
 }
