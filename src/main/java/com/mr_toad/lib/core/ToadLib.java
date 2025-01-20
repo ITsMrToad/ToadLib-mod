@@ -64,7 +64,6 @@ public class ToadLib {
             ToadConfigs.create(MODID, CFG);
             EaseWidgetSettingsRegistry.init();
             ConfigEntryWidgetsRegistry.init();
-            ToadConfigs.load();
         });
     }
 
