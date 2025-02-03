@@ -3,7 +3,7 @@
 
   "toadlib.nar.open": "Відкрити файл або теку",
   "toadlib.nar.interp.focused": "Натисніть enter, щоб вибрати",
-  "toadlib.nar.interp.hovered": "Натисніть ЛКМ, щоб вибрати"",
+  "toadlib.nar.interp.hovered": "Натисніть ЛКМ, щоб вибрати",
 
   "toadconfig.title": "Налаштування ToadLib-модів",
   "toadconfig.search": "Пошук в «%s»",
