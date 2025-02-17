@@ -1,12 +1,10 @@
 package com.mr_toad.lib.mtjava.math.interpolation;
 
-import com.google.common.annotations.Beta;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mr_toad.lib.mtjava.floats.func.ToFloatFunction;
 import net.minecraft.network.chat.Component;
 
-@Beta
 public interface Interpolation {
 
     static Interpolation of(String name, ToFloatFunction<InterpolationContext> getter) {
