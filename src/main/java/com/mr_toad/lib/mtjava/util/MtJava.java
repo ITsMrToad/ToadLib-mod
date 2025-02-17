@@ -27,9 +27,31 @@ public class MtJava {
         return new ImmutableTuple<>(tuple.getA(), tuple.getB());
     }
 
+    public static void validateDegrees(float... degreesArr) {
+        for (float degrees : degreesArr) {
+            if (degrees > 180 || degrees < -180) {
+                throw new IllegalArgumentException("Illegal degree value: '" + degrees + "'");
+            }
+        }
+    }
+
+    public static void validatePercents(double... percentArr) {
+        Arrays.stream(percentArr).forEach(percent -> {
+            if (percent < 0.0D || percent > 1.0D) {
+                throw new IllegalArgumentException("Illegal percent value: '" + percent + "'");
+            }
+        });
+    }
+
     public static void validateDegrees(float degrees) {
         if (degrees > 180 || degrees < -180) {
             throw new IllegalArgumentException("Illegal degree value: '" + degrees + "'");
+        }
+    }
+
+    public static void validatePercents(double percent) {
+        if (percent < 0.0D || percent > 1.0D) {
+            throw new IllegalArgumentException("Illegal percent value: '" + percent + "'");
         }
     }
 
