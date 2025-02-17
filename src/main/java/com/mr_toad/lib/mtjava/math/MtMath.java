@@ -95,6 +95,10 @@ public class MtMath {
         return (int) Math.hypot(x, y);
     }
 
+    public static int trunc(int value) {
+        return value - value % 2;
+    }
+
     public static int average(int... i) {
         return IntStream.of(i).sum() / i.length;
     }
