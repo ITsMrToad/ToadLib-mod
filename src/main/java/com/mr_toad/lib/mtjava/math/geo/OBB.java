@@ -1,26 +1,39 @@
 package com.mr_toad.lib.mtjava.math.geo;
 
-import com.google.common.annotations.Beta;
+import com.google.common.collect.ImmutableList;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.mr_toad.lib.mtjava.math.MtMath;
 import com.mr_toad.lib.mtjava.math.vec.Vec3f;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 
+import javax.annotation.CheckForNull;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Stream;
 
-@Beta //I'm not sure if intersects methods will work properly.
 public class OBB {
 
+    private static final Vec3f[] AABB_AXES = {new Vec3f(0.0f, 0.0f, 1.0f), new Vec3f(0.0f, 1.0f, 0.0f), new Vec3f(1.0f, 0.0f, 0.0f)};
+    
     private final Vec3f center;
     private final Vec3f halfSizes;
     private final Vec3f[] axes;
 
+    public OBB(OBB obb) {
+        this(obb.center, obb.halfSizes, obb.axes);
+    }
+    
     public OBB(Vec3f center, Vec3f halfSizes, Vec3f[] axes) {
-        this.center = center;
-        this.halfSizes = halfSizes;
-        this.axes = axes;
+        if (axes.length <= 1) {
+            throw new IllegalArgumentException("Axes for OBB must have exactly 2 or greater elements.");
+        }
+
+        this.center = new Vec3f(center);
+        this.halfSizes = new Vec3f(halfSizes);
+        this.axes = new Vec3f[3];
+        for (int i = 0; i < 3; i++) {
+            this.axes[i] = this.normalizeOrThrow(axes[i]);
+        }
     }
 
     @CanIgnoreReturnValue
@@ -62,12 +75,55 @@ public class OBB {
     }
 
     public boolean intersects(OBB other) {
-        return Stream.concat(Arrays.stream(this.axes), Arrays.stream(other.axes)).allMatch(axis -> this.overlapOnAxis(other, axis)) && Arrays.stream(this.axes).flatMap(axisThis -> Arrays.stream(other.axes).map(axisThis::cross)).allMatch(axis -> this.overlapOnAxis(other, axis));
+        ImmutableList.Builder<Vec3f> testAxes = ImmutableList.builder();
+
+        testAxes.add(this.axes);
+        testAxes.add(other.axes);
+
+        Arrays.stream(this.axes).forEach(axisA -> Arrays.stream(other.axes).forEach(axisB -> {
+            Vec3f cross = axisA.cross(axisB);
+            Vec3f norm = this.normalizeIfNotZero(cross);
+            if (norm != null) {
+                testAxes.add(norm);
+            }
+        }));
+
+        for (Vec3f axis : testAxes.build()) {
+            Vec3f normAxis = this.normalizeIfNotZero(axis);
+            if (normAxis == null) {
+                continue;
+            }
+            if (!this.overlapOnAxis(other, normAxis)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean intersects(AABB aabb) {
-        Vec3f[] aabbAxes = {new Vec3f(1.0f, 0.0f, 0.0f), new Vec3f(0.0f, 1.0f, 0.0f), new Vec3f(0.0f, 0.0f, 1.0f)};
-        return Stream.concat(Arrays.stream(aabbAxes), Arrays.stream(this.axes)).allMatch(axis -> this.overlapOnAxis(aabb, axis)) && Arrays.stream(aabbAxes).flatMap(axisAABB -> Arrays.stream(this.axes).map(axisAABB::cross)).allMatch(axis -> this.overlapOnAxis(aabb, axis));
+        ImmutableList.Builder<Vec3f> testAxes = ImmutableList.builder();
+
+        testAxes.add(AABB_AXES);
+        testAxes.add(this.axes);
+
+        Arrays.stream(AABB_AXES).forEach(axisAABB -> Arrays.stream(this.axes).forEach(axisOBB -> {
+            Vec3f cross = axisAABB.cross(axisOBB);
+            Vec3f norm = this.normalizeIfNotZero(cross);
+            if (norm != null) {
+                testAxes.add(norm);
+            }
+        }));
+
+        for (Vec3f axis : testAxes.build()) {
+            Vec3f normAxis = this.normalizeIfNotZero(axis);
+            if (normAxis == null) {
+                continue;
+            }
+            if (!this.overlapOnAxis(aabb, normAxis)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean overlapOnAxis(AABB aabb, Vec3f axis) {
@@ -88,7 +144,7 @@ public class OBB {
         float maxDot = Float.NEGATIVE_INFINITY;
         float minDot = Float.POSITIVE_INFINITY;
 
-        for (Vec3f vertex : getVertices(aabb)) {
+        for (Vec3f vertex : this.getVertices(aabb)) {
             float dot = vertex.dot(axis);
             maxDot = Math.max(maxDot, dot);
             minDot = Math.min(minDot, dot);
@@ -120,8 +176,58 @@ public class OBB {
         };
     }
 
+    public Vec3f[] getVertices() {
+        Vec3f[] vertices = new Vec3f[8];
+        int i = 0;
+        for (int j = 0; j < 2; j++) {
+            for (int k = 0; k < 2; k++) {
+                for (int l = 0; l < 2; l++) {
+                    Vec3f vertex = new Vec3f(this.center);
+                    vertex.add(this.axes[0].scale(MtMath.sign(j) * this.halfSizes.x()));
+                    vertex.add(this.axes[1].scale(MtMath.sign(k) * this.halfSizes.y()));
+                    vertex.add(this.axes[2].scale(MtMath.sign(l) * this.halfSizes.z()));
+                    vertices[i++] = vertex;
+                }
+            }
+        }
+        return vertices;
+    }
+
+    private Vec3f normalizeOrThrow(Vec3f vec) {
+        float length = vec.length();
+        if (length < MtMath.EPSILON) {
+            throw new IllegalArgumentException("Axis vector is too small to normalize: " + vec);
+        }
+        return vec.scale(1.0f / length);
+    }
+
+    @CheckForNull
+    private Vec3f normalizeIfNotZero(Vec3f axis) {
+        float length = axis.length();
+        if (length > MtMath.EPSILON) {
+            return axis.scale(1.0f / length);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof OBB other)) {
+            return false;
+        } else {
+            return Objects.equals(this.center, other.center) && Objects.equals(this.halfSizes, other.halfSizes) && Arrays.equals(this.axes, other.axes);
+        }
+    }
+    
     @Override
     public int hashCode() {
         return Objects.hash(this.center, this.halfSizes, Arrays.hashCode(this.axes));
+    }
+  
+    @Override
+    public String toString() {
+        return "OBB[center=" + this.center + ", halfSizes=" + this.halfSizes + ", axes=" + Arrays.toString(this.axes) + "]";
     }
 }
