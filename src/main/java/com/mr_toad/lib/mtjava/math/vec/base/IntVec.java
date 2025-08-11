@@ -1,11 +1,16 @@
 package com.mr_toad.lib.mtjava.math.vec.base;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.mr_toad.lib.mtjava.nio.MTNIO;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 
-import java.util.function.IntSupplier;
+import java.util.List;
+import java.util.function.IntPredicate;
+import java.util.function.IntUnaryOperator;
+import java.util.function.Supplier;
 
 public interface IntVec<S> {
 
@@ -108,3 +113,4 @@ public interface IntVec<S> {
         return "Vec" + this.size() + "[" + String.join(",", this.values().stream().map(String::valueOf).toList()) + "]";
     }
 }
+
