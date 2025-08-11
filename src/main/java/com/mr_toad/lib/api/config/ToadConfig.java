@@ -2,17 +2,17 @@ package com.mr_toad.lib.api.config;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.mr_toad.lib.api.config.entry.ConfigEntry;
 import com.mr_toad.lib.core.ToadLib;
-import com.mr_toad.lib.mtjava.collections.UniqueList;
-import com.mr_toad.lib.mtjava.io.MTIO;
-import com.mr_toad.lib.mtjava.strings.OptionalString;
-import com.mr_toad.lib.mtjava.strings.func.StringFunction;
 import com.mr_toad.lib.mtjava.strings.func.StringSupplier;
-import net.minecraft.nbt.CompoundTag;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,24 +22,21 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Iterator;
 
 @OnlyIn(Dist.CLIENT)
 public class ToadConfig {
 
-    protected static final Splitter OPTION_SPLITTER = Splitter.on(':').limit(2);
+    protected static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    protected final UniqueList<ConfigEntry<?, ?>> entries;
+    protected final ObjectList<ConfigEntry<?, ?>> entries = new ObjectArrayList<>();
     protected final String path;
 
     protected ToadConfig(StringSupplier path) {
         this.path = path.getAsString();
-        this.entries = new UniqueList<>();
     }
 
     public void load() {
@@ -48,31 +45,24 @@ public class ToadConfig {
             return;
         }
 
-        CompoundTag nbt = new CompoundTag();
-
-        try {
-            MTIO.readLines(this.getConfig()).forEach(line -> {
-                Iterator<String> iterator = OPTION_SPLITTER.split(line).iterator();
-                nbt.putString(iterator.next(), iterator.next());
+        try (Reader reader = Files.newBufferedReader(this.getConfig(), StandardCharsets.UTF_8)) {
+            JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
+            this.entries.forEach(configEntry -> {
+                if (root.has(configEntry.toString())) {
+                    JsonElement element = root.get(configEntry.toString());
+                    configEntry.load(element);
+                }
             });
         } catch (IOException e) {
             ToadLib.LOGGER.error(ToadLib.CONFIG, "Failed to load '{}'", this.path, e);
         }
-
-        StringFunction<OptionalString> value = s -> nbt.contains(s) ? OptionalString.of(nbt.getString(s)) : OptionalString.empty();
-        this.entries.forEach(configEntry -> value.apply(configEntry.toString()).ifPresent(s -> {
-            JsonReader reader = new JsonReader(new StringReader(s.isEmpty() ? "\"\"" : s));
-            JsonElement element = JsonParser.parseReader(reader);
-            configEntry.load(element);
-        }));
     }
 
     public void save() {
-        try (final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(this.getConfig().toFile()), StandardCharsets.UTF_8))) {
-            this.entries.forEach(configEntry -> {
-                ToadLib.LOGGER.info(ToadLib.CONFIG, "Saved '{}', '{}'", configEntry, configEntry.get());
-                configEntry.save(writer);
-            });
+       try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.getConfig().toFile()), StandardCharsets.UTF_8)) {
+            JsonObject object = new JsonObject();
+            this.entries.forEach(configEntry -> configEntry.save(object));
+            GSON.toJson(object, writer);
         } catch (IOException e) {
             ToadLib.LOGGER.error(ToadLib.CONFIG, "Failed to save '{}'", this.path);
         }
@@ -93,10 +83,11 @@ public class ToadConfig {
     }
 
     public Path getConfig() {
-        return FMLPaths.CONFIGDIR.get().resolve(this.path + ".txt");
+        return FMLPaths.CONFIGDIR.get().resolve(this.path + ".toadcfg");
     }
 
     public boolean shouldCreateScreen() {
         return true;
     }
 }
+
