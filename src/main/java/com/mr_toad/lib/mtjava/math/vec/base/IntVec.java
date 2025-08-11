@@ -68,44 +68,56 @@ public interface IntVec<S> {
         return this.scale(-1);
     }
 
-    @CanIgnoreReturnValue
-    default S normalize() {
-        return this.scale(1 / this.length());
+    @CanIgnoreReturnValue default S destroy() {
+        return this.set(this.zero());
     }
 
-    default CompoundTag save() {
-        CompoundTag nbt = new CompoundTag();
-        this.values().forEach(d -> nbt.putInt(this.valueName(d), d));
-        return nbt;
+    @CanIgnoreReturnValue default S inverse() {
+        return this.scale(-1);
     }
 
-    default void load(CompoundTag nbt) {
-        for (int i = 0; i < this.values().size(); i++) {
-            int d1 = this.get(i);
-            if (nbt.contains(this.valueName(d1))) {
-                int finalI = i;
-                this.set(() -> finalI, nbt.getInt(this.valueName(d1)));
-            }
+    @CanIgnoreReturnValue default S def(int scalar) {
+        return this.scale(1 / scalar);
+    }
+
+    @CanIgnoreReturnValue default S normalize() {
+        return this.def(this.length());
+    }
+
+    default void setIf(IntPredicate predicate, IntUnaryOperator v) {
+        for (int i = 0; i < this.values().intStream().filter(predicate).toArray().length; i++) {
+            this.set(i, v.applyAsInt(this.get(i)));
         }
     }
 
+    default void setIf(IntPredicate predicate, int v) {
+        for (int i = 0; i < this.values().intStream().filter(predicate).toArray().length; i++) {
+            this.set(i, v);
+        }
+    }
+
+    default boolean anyEqual(float v) {
+        return this.values().intStream().anyMatch(d -> d == v);
+    }
+
+    default boolean allEqual(float v) {
+        return this.values().intStream().allMatch(d -> d == v);
+    }
+
+    default boolean noneEqual(float v) {
+        return this.values().intStream().noneMatch(d -> d == v);
+    }
+
+    default ListTag save() {
+        ListTag list = new ListTag();
+        for (int value : this.values()) {
+            list.add(IntTag.valueOf(value));
+        }
+        return list;
+    }
+
     default void write(FriendlyByteBuf buf) {
-        this.values().forEach(buf::writeDouble);
-    }
-
-    default void read(FriendlyByteBuf buf) {
-        this.values().clear();
-        this.values().addAll(buf.readList(FriendlyByteBuf::readInt));
-    }
-
-    default String valueName(int d) {
-        return switch (this.values().indexOf(d)) {
-            case 0 -> "x";
-            case 1 -> "y";
-            case 2 -> "z";
-            case 3 -> "w";
-            default -> "unexpected";
-        };
+        buf.writeCollection(this.values(), FriendlyByteBuf::writeInt);
     }
 
     @SuppressWarnings("deprecation")
@@ -113,4 +125,5 @@ public interface IntVec<S> {
         return "Vec" + this.size() + "[" + String.join(",", this.values().stream().map(String::valueOf).toList()) + "]";
     }
 }
+
 
