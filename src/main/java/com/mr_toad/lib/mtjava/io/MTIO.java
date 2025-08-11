@@ -1,6 +1,8 @@
 package com.mr_toad.lib.mtjava.io;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.io.MoreFiles;
+import com.google.common.io.RecursiveDeleteOption;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.mr_toad.lib.mtjava.concurrent.Concurrents;
 import net.minecraft.Util;
@@ -25,6 +27,10 @@ public class MTIO {
         Concurrents.shutdownService(IO);
     }
 
+    public static void clearPackage(Path path) throws IOException {
+        MoreFiles.deleteDirectoryContents(path, RecursiveDeleteOption.ALLOW_INSECURE);
+    }
+
     public static ImmutableList<String> readLines(File file) throws IOException {
         return readLines(file.toPath());
     }
@@ -45,3 +51,4 @@ public class MTIO {
         return ImmutableList.copyOf(reader.lines().iterator());
     }
 }
+
