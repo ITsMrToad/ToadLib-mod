@@ -1,11 +1,33 @@
 package com.mr_toad.lib.mtjava.math.vec.base;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.mr_toad.lib.mtjava.nio.MTNIO;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
-import net.minecraft.nbt.CompoundTag;
+import it.unimi.dsi.fastutil.doubles.DoublePredicate;
+import it.unimi.dsi.fastutil.doubles.DoubleUnaryOperator;
+import net.minecraft.nbt.DoubleTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 
-public interface DoubleVec<S> {
+public interface DoubleVec<S extends DoubleVec<S>> {
+
+    static<S extends DoubleVec<S>> S load(Supplier<S> empty, ListTag list) {
+        S vec = empty.get();
+        List<DoubleTag> tags = list.stream().map(DoubleTag.class::cast).toList();
+        for (int i = 0; i < tags.size(); i++) {
+            vec.set(i, tags.get(i).getAsDouble());
+        }
+        return vec;
+    }
+
+    static<S extends DoubleVec<S>> S read(Supplier<S> empty, FriendlyByteBuf buf) {
+        S vec = empty.get();
+        DoubleList list = MTNIO.readDoubleList(buf);
+        for (int i = 0; i < list.size(); i++) {
+            vec.set(i, list.getDouble(i));
+        }
+        return vec;
+    }
 
     @CanIgnoreReturnValue S set(S other);
 
@@ -43,10 +65,6 @@ public interface DoubleVec<S> {
         return this.values().getDouble(index);
     }
 
-    default double set(int index, double value) {
-        return this.values().set(index, value);
-    }
-
     default int size() {
         return this.values().size();
     }
@@ -61,50 +79,48 @@ public interface DoubleVec<S> {
         return this.scale(-1.0F);
     }
 
-    default void normalize() {
-        double f = this.length();
-        if (f < 1.0E-4F) {
-            this.destroy();
-        } else {
-            for (int i = 0; i < this.values().size(); i++) {
-                double v = this.get(i);
-                this.set(i, v / f);
-            }
+    @CanIgnoreReturnValue default S def(double scalar) {
+        return this.scale(1.0D / scalar);
+    }
+
+    @CanIgnoreReturnValue default S normalize() {
+        return this.def(this.length());
+    }
+
+    default void setIf(DoublePredicate predicate, DoubleUnaryOperator v) {
+        for (int i = 0; i < this.values().doubleStream().filter(predicate::test).toArray().length; i++) {
+            this.set(i, v.apply(this.get(i)));
         }
     }
 
-    default CompoundTag save() {
-        CompoundTag nbt = new CompoundTag();
-        this.values().forEach(d -> nbt.putDouble(this.valueName(d), d));
-        return nbt;
+    default void setIf(DoublePredicate predicate, double v) {
+        for (int i = 0; i < this.values().doubleStream().filter(predicate::test).toArray().length; i++) {
+            this.set(i, v);
+        }
     }
 
-    default void load(CompoundTag nbt) {
-        for (int i = 0; i < this.values().size(); i++) {
-            double d1 = this.get(i);
-            if (nbt.contains(this.valueName(d1))) {
-                this.set(i, nbt.getDouble(this.valueName(d1)));
-            }
+    default boolean anyEqual(float v) {
+        return this.values().doubleStream().anyMatch(d -> d == v);
+    }
+
+    default boolean allEqual(float v) {
+        return this.values().doubleStream().allMatch(d -> d == v);
+    }
+
+    default boolean noneEqual(float v) {
+        return this.values().doubleStream().noneMatch(d -> d == v);
+    }
+
+    default ListTag save() {
+        ListTag list = new ListTag();
+        for (double value : this.values()) {
+            list.add(DoubleTag.valueOf(value));
         }
+        return list;
     }
 
     default void write(FriendlyByteBuf buf) {
-        this.values().forEach(buf::writeDouble);
-    }
-
-    default void read(FriendlyByteBuf buf) {
-        this.values().clear();
-        this.values().addAll(buf.readList(FriendlyByteBuf::readDouble));
-    }
-
-    default String valueName(double d) {
-        return switch (this.values().indexOf(d)) {
-            case 0 -> "x";
-            case 1 -> "y";
-            case 2 -> "z";
-            case 3 -> "w";
-            default -> "unexpected";
-        };
+        buf.writeCollection(this.values(), FriendlyByteBuf::writeDouble);
     }
 
     @SuppressWarnings("deprecation")
@@ -112,3 +128,4 @@ public interface DoubleVec<S> {
         return "Vec" + this.size() + "[" + String.join(",", this.values().stream().map(String::valueOf).toList()) + "]";
     }
 }
+
