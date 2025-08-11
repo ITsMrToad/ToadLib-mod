@@ -17,8 +17,15 @@ import java.util.Objects;
 @OnlyIn(Dist.CLIENT)
 public abstract class ConfigEntry<T, E extends ConfigEntry<T, E>> {
 
+    private final ObjectList<Callback<ConfigEntry<T, E>, T>> changeCallbacks = new ObjectArrayList<>();
+    private final ObjectList<Callback<ConfigEntry<T, E>, T>> resetCallbacks = new ObjectArrayList<>();
+
     protected Component title = CommonComponents.EMPTY;
     protected Component description = CommonComponents.EMPTY;
+
+    @Nullable private HighlightWarning highlightWarning = null;
+    @Nullable private PerformanceImpact performanceImpact = null;
+    @Nullable private DeprecationRule deprecationRule = null;
 
     private boolean drawInScreen = true;
 
@@ -53,13 +60,37 @@ public abstract class ConfigEntry<T, E extends ConfigEntry<T, E>> {
         return (E) this;
     }
 
-    public void save(PrintWriter writer) {
+    public E addDeprecationRule(DeprecationRule rule) {
+        this.deprecationRule = rule;
+        return (E) this;
+    }
+
+    public E withWarning(HighlightWarning warning) {
+        this.highlightWarning = warning;
+        return (E) this;
+    }
+
+    public E withPerformanceImpact(PerformanceImpact impact) {
+        this.performanceImpact = impact;
+        return (E) this;
+    }
+
+    @SafeVarargs
+    public final void addChangeCallback(Callback<ConfigEntry<T, E>, T>... callbacks) {
+        Collections.addAll(this.changeCallbacks, callbacks);
+    }
+
+    @SafeVarargs
+    public final void addResetCallback(Callback<ConfigEntry<T, E>, T>... callbacks) {
+        Collections.addAll(this.resetCallbacks, callbacks);
+    }
+
+    public void save(JsonObject object) {
         DataResult<JsonElement> result = this.codec.encodeStart(JsonOps.INSTANCE, this.get());
         result.error().ifPresent(r -> ToadLib.LOGGER.error(ToadLib.CONFIG, "Failed to save '{}':{}", this.name, r.message()));
         result.result().ifPresent(r -> {
-            writer.print(this.name);
-            writer.print(":");
-            writer.println(r);
+            object.add(this.name, r);
+            ToadLib.LOGGER.debug(ToadLib.CONFIG, "Saved '{}', '{}'", this, this.get());
         });
     }
 
@@ -74,10 +105,16 @@ public abstract class ConfigEntry<T, E extends ConfigEntry<T, E>> {
     }
 
     public void setValue(T value) {
+        for (Callback<ConfigEntry<T, E>, T> callback : this.changeCallbacks) {
+            callback.call(this, this.value, value);
+        }
         this.value = value;
     }
 
     public void resetValue() {
+         for (Callback<ConfigEntry<T, E>, T> callback : this.resetCallbacks) {
+            callback.call(this, this.value, this.defaultValue);
+        }
         this.setValue(this.defaultValue);
     }
 
@@ -97,6 +134,10 @@ public abstract class ConfigEntry<T, E extends ConfigEntry<T, E>> {
         return this.get().equals(this.getDefaultValue());
     }
 
+    public boolean isDeprecated() {
+        return this.getDeprecationRule() != null && this.getDeprecationRule().isActive();
+    }
+
     public Component getTitle() {
         if (this.title == CommonComponents.EMPTY) {
             return Component.literal(this.name);
@@ -105,7 +146,26 @@ public abstract class ConfigEntry<T, E extends ConfigEntry<T, E>> {
     }
 
     public Component getDescription() {
-        return this.description;
+        if (this.isDeprecated()) {
+            return this.getDeprecationRule().getTooltip();
+        }
+
+        Component c = this.description.copy();
+        if (this.getPerformanceImpact() != null || this.getHighlightWarning() != null) {
+            c = CommonComponents.joinLines(c, CommonComponents.NEW_LINE);
+        } else {
+            return c;
+        }
+
+        if (this.getHighlightWarning() != null) {
+            c = CommonComponents.joinLines(c, this.getHighlightWarning().getTooltip());
+        }
+
+        if (this.getPerformanceImpact() != null) {
+            c = CommonComponents.joinLines(c, this.getPerformanceImpact().getTooltip());
+        }
+
+        return c;
     }
 
     @Override
@@ -129,4 +189,10 @@ public abstract class ConfigEntry<T, E extends ConfigEntry<T, E>> {
     public String toString() {
         return this.name;
     }
+    
+    @FunctionalInterface
+    public interface Callback<E, T> {
+        void call(E entry, T old, T current);
+    }
 }
+
