@@ -42,6 +42,9 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
     public SpriteButton resetButton;
     public LinkButton fileButton;
 
+    private boolean hasDeprecations = false;
+    private boolean needsUpdate = false;
+    private Predicate<ConfigEntry<?, ?>> lastFilter = null;
     public String lastSearch = "";
 
     public ToadConfigScreen(Screen parent, ToadConfig config) {
@@ -52,7 +55,6 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
     @Override
     protected void init() {
         this.widgetSelectionList = this.addRenderableWidget(new WidgetSelectionList(this.getMinecraft(), this.width, this.height, 30, this.height - 20, 35));
-
         this.fillEntries(e -> true, true);
 
         Component component = Component.translatable("toadconfig.search", ToadConfigs.getConfigTitle(this.config)).withStyle(ChatFormatting.GRAY);
@@ -62,7 +64,7 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
         this.searchBox.setResponder(s -> {
             if (!Objects.equals(this.lastSearch, s)) {
                 this.tickable.clear();
-                this.fillEntries(e -> e.getTitle().getString().contains(s), this.lastSearch.isEmpty());
+                this.fillEntries(e -> e.getTitle().getString().contains(s), s.isEmpty());
                 this.lastSearch = s;
             }
         });
@@ -72,12 +74,16 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
             this.tickable.clear();
             this.config.getEntries().forEach(ConfigEntry::resetValue);
             this.resetButton.active = !this.config.getEntries().stream().allMatch(ConfigEntry::isDefault);
+            this.fillEntries(e -> true, true);
+            this.needsUpdate = true;
         }));
         this.resetButton.setTooltip(Tooltip.create(RESET));
 
         this.fileButton = this.addRenderableWidget(new LinkButton(65, 7, 20, 20, LinkButton.DefaultType.COMMON_FILE, this.config.getConfig()));
         this.fileButton.setTooltip(Tooltip.create(Component.translatable("toadconfig.open_file", ToadConfigs.getConfigTitle(this.config))));
 
+        this.hasDeprecations = this.config.getEntries().stream().anyMatch(e -> e.getDeprecationRule() != null);
+        
         super.init();
     }
 
@@ -100,12 +106,34 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
         this.config.save();
     }
 
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        super.render(graphics, mouseX, mouseY, partialTick);
+        if (this.needsUpdate) {
+            Predicate<ConfigEntry<?, ?>> filter = this.lastFilter == null ? e -> true : this.lastFilter;
+            ImmutableArrayList<ConfigEntry<?, ?>> list = new ImmutableArrayList<>(this.config.getEntries().stream().filter(filter).toList());
+            for (int i = 0; i < list.size(); i++) {
+                AbstractWidget widget = this.configSelectionList.children().get(i).widget;
+                if (widget != null) {
+                    widget.active = !list.get(i).isDeprecated();
+                }
+            }
+            this.resetButton.active = !this.config.getEntries().stream().allMatch(ConfigEntry::isDefault);
+        }
+    }
+
+    public void fillEntries() {
+        if (this.hasDeprecations) {
+            this.needsUpdate = true;
+        }
+    }
+    
     @SuppressWarnings("rawtypes")
     public void fillEntries(Predicate<ConfigEntry<?, ?>> filter, boolean drawPages) {
         int x = 15;
         this.widgetSelectionList.clearEntries();
-        for (int i = 0; i < this.config.getEntries().stream().filter(filter).toList().size(); i++) {
-            ConfigEntry<?, ?> entry = this.config.getEntries().get(i);
+        ImmutableArrayList<ConfigEntry<?, ?>> list = new ImmutableArrayList<>(this.config.getEntries().stream().filter(filter).toList());
+        for (ConfigEntry<?, ?> entry : list) {
             ConfigEntryType type = entry.getType();
             if (!entry.drawInScreen() || type == ConfigEntryTypes.PAGE && !drawPages) {
                 return;
@@ -120,5 +148,7 @@ public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
                 }
             }
         }
+        this.lastFilter = filter;
     }
 }
+
