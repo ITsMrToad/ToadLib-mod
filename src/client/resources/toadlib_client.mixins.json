@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.mr_toad.lib.client.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "toadlib.refmap.json",
+  "minVersion": "0.8",
+  "mixins": [],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "ScreenMixin",
+    "TooltipMixin"
+  ]
+}

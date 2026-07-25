@@ -1,0 +1,162 @@
+package com.mr_toad.lib.api.client.screen.config;
+
+import com.mr_toad.lib.api.client.init.ConfigEntryWidgetsRegistry;
+import com.mr_toad.lib.api.client.screen.config.widget.ConfigEntriesSelectionList;
+import com.mr_toad.lib.api.client.screen.config.widget.ConfigEntryWidgetMaker;
+import com.mr_toad.lib.api.client.screen.ex.ParentableToadLibScreen;
+import com.mr_toad.lib.api.client.screen.ex.widget.ExEditBox;
+import com.mr_toad.lib.api.client.screen.ex.widget.LinkButton;
+import com.mr_toad.lib.api.client.screen.ex.widget.SpriteButton;
+import com.mr_toad.lib.api.client.utils.ToadClientUtils;
+import com.mr_toad.lib.api.config.ToadConfig;
+import com.mr_toad.lib.api.config.entry.ConfigEntry;
+import com.mr_toad.lib.api.config.entry.type.ConfigEntryType;
+import com.mr_toad.lib.api.config.entry.type.ConfigEntryTypes;
+import com.mr_toad.lib.mtjava.collections.ImmutableArrayList;
+import com.mr_toad.lib.mtjava.collections.execute.ExecutableArrayList;
+import com.mr_toad.lib.mtjava.math.vec.Vec2i;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import org.jspecify.annotations.NonNull;
+
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
+
+@Environment(EnvType.CLIENT)
+public class ToadConfigScreen extends ParentableToadLibScreen<Screen> {
+
+    private static final Component RESET = Component.translatable("toadconfig.reset");
+
+    private final ExecutableArrayList tickable = new ExecutableArrayList();
+
+    public final ToadConfig config;
+
+    public ConfigEntriesSelectionList widgetSelectionList;
+    public ExEditBox searchBox;
+    public SpriteButton resetButton;
+    public LinkButton fileButton;
+
+    private boolean hasDeprecations = false;
+    private boolean shouldReloadResources = false;
+    private boolean needsUpdate = false;
+    public String lastSearch = "";
+
+    public ToadConfigScreen(Screen parent, ToadConfig config) {
+        super(CommonComponents.EMPTY, parent, new Vec2i(20, 7));
+        this.config = config;
+    }
+
+    @Override
+    protected void init() {
+        this.widgetSelectionList = this.addRenderableWidget(new ConfigEntriesSelectionList(this.minecraft, this.width + 70, this.height, 33, 27));
+
+        this.fillEntries(e -> true, true);
+
+        Component component = Component.translatable("toadconfig.search", this.config.title()).withStyle(ChatFormatting.GRAY);
+
+        this.searchBox = this.addRenderableWidget(new ExEditBox(this.font, this.width / 2 - 50, 7, 140, 20, component));
+        this.searchBox.setHint(component);
+        this.searchBox.setResponder(s -> {
+            if (!Objects.equals(this.lastSearch, s)) {
+                this.tickable.clear();
+                this.fillEntries(e -> e.getType() != ConfigEntryTypes.PAGE && e.getTitle().getString().toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT)), this.lastSearch.isEmpty());
+                this.lastSearch = s;
+            }
+        });
+        this.searchBox.setRenderMagnifyingGlass(true);
+
+        this.resetButton = this.addRenderableWidget(ToadClientUtils.createResetButton(40, 7, 20, 20, b -> {
+            this.tickable.clear();
+            this.config.getEntries().forEach(ConfigEntry::resetValue);
+            this.resetButton.active = !this.config.getEntries().stream().allMatch(ConfigEntry::isDefault);
+            this.fillEntries(e -> true, true);
+            this.needsUpdate = true;
+        }));
+        this.resetButton.setTooltip(Tooltip.create(RESET));
+
+        this.fileButton = this.addRenderableWidget(new LinkButton(65, 7, 20, 20, LinkButton.DefaultType.JSON_FILE, this.config.getConfig()));
+        this.fileButton.setTooltip(Tooltip.create(Component.translatable("toadconfig.open_file", this.config.title())));
+
+        this.hasDeprecations = this.config.getEntries().stream().anyMatch(ConfigEntry::isDeprecated);
+        super.init();
+    }
+
+    @Override
+    public void tick() {
+        this.tickable.run();
+        super.tick();
+    }
+
+    @Override
+    protected void onTurnBack() {
+        super.onTurnBack();
+        this.config.save();
+        if (this.shouldReloadResources) {
+            Minecraft.getInstance().reloadResourcePacks();
+        }
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+        this.config.save();
+        if (this.shouldReloadResources) {
+            Minecraft.getInstance().reloadResourcePacks();
+        }
+    }
+
+    @Override
+    public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractRenderState(graphics, mouseX, mouseY, a);
+        if (this.needsUpdate) {
+            for (ConfigEntriesSelectionList.Entry entry : this.widgetSelectionList.children()) {
+                entry.widget.active = !entry.entry.isDeprecated();
+            }
+            this.resetButton.active = !this.config.getEntries().stream().allMatch(ConfigEntry::isDefault);
+            this.shouldReloadResources = this.config.getEntries().stream().anyMatch(ConfigEntry::mustReloadResource);
+            this.needsUpdate = false;
+        }
+    }
+
+    public void fillEntries() {
+        if (this.hasDeprecations) {
+            this.needsUpdate = true;
+        }
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void fillEntries(Predicate<ConfigEntry<?, ?>> filter, boolean drawPages) {
+        int x = 15;
+
+        this.widgetSelectionList.clearEntries();
+        ImmutableArrayList<ConfigEntry<?, ?>> list = new ImmutableArrayList<>(this.config.getEntries().stream().filter(filter).toList());
+        for (ConfigEntry<?, ?> entry : list) {
+            ConfigEntryType type = entry.getType();
+            if (!entry.drawInScreen() || type == ConfigEntryTypes.PAGE && !drawPages) {
+                continue;
+            }
+
+            Optional<ConfigEntryWidgetMaker<?, ?, ?>> optional = ConfigEntryWidgetsRegistry.getMakerOf(type);
+            if (optional.isPresent()) {
+                ConfigEntryWidgetMaker maker = optional.get();
+                GuiEventListener listener = maker.make(this, x, entry);
+                ConfigEntryWidgetsRegistry.getTickerOf(type).ifPresent(consumer -> this.tickable.add(() -> consumer.accept(listener)));
+                if (listener instanceof AbstractWidget widget) {
+                    widget.active = !entry.isDeprecated();
+                    this.widgetSelectionList.addEntry(new ConfigEntriesSelectionList.Entry(widget, entry), widget.getHeight() + 5);
+                }
+            }
+        }
+    }
+}
