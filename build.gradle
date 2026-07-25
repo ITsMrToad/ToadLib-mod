@@ -1,74 +1,12 @@
-buildscript {
-    repositories {
-        maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
-        maven { url = "https://files.minecraftforge.net/maven" }
-    }
-    dependencies {
-        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
-        classpath group: "org.spongepowered", name: "mixingradle", version: "0.7-SNAPSHOT"
-    }
-}
-
-apply plugin: "net.minecraftforge.gradle"
-apply plugin: "idea"
-apply plugin: "maven-publish"
-apply plugin: "org.spongepowered.mixin"
-
-version = minecraft_version + mod_version
-group = mod_group
-
-base {
-    archivesName = mod_name
-}
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-
-    mappings channel: mapping_channel, version: mapping_version
-
-    runs {
-
-        configureEach {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        client {
-            arg "-mixin.config=" + project.mod_id + ".mixins.json"
-
-        }
-
-        server {
-            args '--nogui'
-            arg "-mixin.config=" + project.mod_id + ".mixins.json"
-        }
-
-
-        data {
-            workingDirectory project.file('run-data')
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
-    }
-}
-
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-mixin {
-    add sourceSets.main, "${project.mod_id}.refmap.json"
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
 
 repositories {
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/releases"
+    }
     exclusiveContent {
         forRepository {
             maven {
@@ -76,82 +14,54 @@ repositories {
                 url = "https://api.modrinth.com/maven"
             }
         }
-        forRepositories(fg.repository)
         filter {
             includeGroup "maven.modrinth"
         }
+    }
+}
 
-        forRepository {
-            maven {
-                name = "CurseMaven"
-                url = "https://cursemaven.com"
-            }
-        }
-        forRepositories(fg.repository)
-        filter {
-            includeGroup "curse.maven"
+group = maven_group
+version = project.mod_version
+
+loom {
+    mixin.defaultRefmapName = "toadlib.refmap.json"
+    accessWidenerPath = file("src/main/resources/toadlib.accesswidener")
+    splitEnvironmentSourceSets()
+    mods {
+        "modid" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
         }
     }
 }
 
 dependencies {
-    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    implementation fg.deobf("maven.modrinth:spark:1.10.53-forge")
-    implementation fg.deobf("curse.maven:catalogue-459701:4766090")
-}
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            minecraft_version: minecraft_version, 
-            minecraft_version_range: minecraft_version_range,
-            
-            forge_version: forge_version, 
-            forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
-           
-            mod_id: mod_id, mod_name: 
-            mod_name, mod_license:
-            mod_license, mod_version: mod_version,
-            mod_authors: mod_author, 
-            mod_description: mod_description,
-    ]
-    inputs.properties replaceProperties
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
+    implementation "com.terraformersmc:modmenu:${project.modmenu}", {
+        exclude module: "fabric-api"
     }
 }
 
-tasks.named('jar', Jar).configure {
-    manifest {
-        attributes([
-                'Specification-Title'     : mod_id,
-                'Specification-Vendor'    : mod_author,
-                'Specification-Version'   : '1',
-                'Implementation-Title'    : project.name,
-                'Implementation-Version'  : project.jar.archiveVersion,
-                'Implementation-Vendor'   : mod_author,
-                "MixinConfigs"            : project.mod_id + ".mixins.json",
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
+processResources {
+    inputs.property "version", project.version
 
-    finalizedBy 'reobfJar'
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
 
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 tasks.withType(JavaCompile).configureEach {
